@@ -184,13 +184,23 @@ $(document).ready(function() {
 	
 	//User Input Mapping
 	var moveFunction = function(x, y) {return function() {gameData.direction = {x: x, y: y};}};
-
-	$(document).bind('keydown', '', moveFunction(-1, 0));
-	$(document).bind('keydown', 'd l right', moveFunction(1, 0));
-	$(document).bind('keydown', 'w i up', moveFunction(0, -1));
-	$(document).bind('keydown', 's k down', moveFunction(0, 1));
+	var left = moveFunction(-1, 0);
+	var right = moveFunction(1, 0);
+	var up = moveFunction(0, -1);
+	var down = moveFunction(0, 1);
+	$(document).bind('keydown', 'a j left', left);
+	$(document).bind('keydown', 'd l right', right);
+	$(document).bind('keydown', 'w i up', up);
+	$(document).bind('keydown', 's k down', down);
 	$(document).bind('keydown', 'n', newGame);
 	$(document).bind('keydown', 'space', togglePause);
+	//$(document).on('swipeLeft', left);
+	$(document).swipe({
+		swipeLeft: left,
+		swipeRight: right,
+		swipeUp: up,
+		swipeDown: down
+	});
 	newGame();
 	startAnimLoop();
 });
