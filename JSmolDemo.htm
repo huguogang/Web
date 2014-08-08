@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Demo - JSmol for HTML5</title>
+<link href="lib/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+<body>
+<!-- All JSmol files that will be loaded for this app:
+JSmol.min.js
+j2s/core/package.js
+j2s/core/core.z.js
+j2s/java/io/FileOutputStream.js
+js2/core/corescript.z.js
+ -->
+ <div class="container">
+ <h1>A bare bone JSmol Demo Page</h1>
+<div id="JSmolAppDiv"></div>
+<div class="well">This is a barebone JSmol demo. 
+<p class="text-muted">Since I only uploaded a few core JS files from JSmol, some menu items may not work.</p></div>
+<script type="text/javascript" src="lib/jsmol/JSmol.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	Jmol.setDocument(false);
+	var JmolConfig = {
+	 width: 200,
+	 height: 200,
+	 debug: false,
+	 color: "0x080808",
+	 addSelectionOptions: false,
+	 use: "HTML5",   // JAVA HTML5 WEBGL are all options
+	 j2sPath: "lib/jsmol/j2s", // this needs to point to where the j2s directory is.
+	 script: "load lib/jsmol/data/caffeine.mol", //load public data
+	 disableJ2SLoadMonitor: true,
+	 disableInitialConsole: true,
+	 allowJavaScript: true,
+	 showfrank: false
+	}
+	delete Jmol._tracker; //disable Google Analytics traffic tracking
+	var applet = Jmol.getApplet("demo1", JmolConfig);
+    $("#JSmolAppDiv").html(Jmol.getAppletHtml(applet));
+});
+</script>
+</div>
+</body>
+</html>
