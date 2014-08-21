@@ -88,7 +88,7 @@ QUnit
         var ret = longestCollatzSequence(params.n);
         equal(ret, params.expected);
     });
- */
+
 QUnit
 .cases([
     { n: 3, expected: 2 },
@@ -99,3 +99,66 @@ QUnit
     var ret = evenFibonacciNumbers(params.n);
     equal(ret, params.expected);
 });
+
+QUnit
+    .cases([
+        { n: 2, expected: 2 },
+        { n: 16, expected: 5 }
+    ])
+    .useTitleTemplate(true)
+    .test("find factors test, n=<%= n %>", function (params) {
+        var ret = findFactors(params.n);
+        equal(ret.length, params.expected);
+    });
+
+QUnit
+    .cases([
+        { n: 1, expected: true },
+        { n: 2, expected: true },
+        { n: 47, expected: true },
+        { n: 16, expected: false }
+    ])
+    .useTitleTemplate(true)
+    .test("is prime test, n=<%= n %>", function (params) {
+        var ret = isPrime(params.n);
+        equal(ret, params.expected);
+    });
+
+QUnit
+    .cases([
+        { n: 1, expected: 1 },
+        { n: 2, expected: 2 },
+        { n: 47, expected: 47 },
+        { n: 16, expected: 2 },
+        { n: 600851475143, expected: 6857}
+    ])
+    .useTitleTemplate(true)
+    .test("largest prime factor test, n=<%= n %>", function (params) {
+        var ret = largetPrimeFactor(params.n);
+        equal(ret, params.expected);
+    });
+QUnit
+    .cases([
+        { n: 1, expected: true },
+        { n: 12, expected: false },
+        { n: 11, expected: true },
+        { n: 121, expected: true }
+    ])
+    .useTitleTemplate(true)
+    .test("isPalindromeNumber test, n=<%= n %>", function (params) {
+        var ret = isPalindromeNumber(params.n);
+        equal(ret, params.expected);
+    });
+
+QUnit
+    .cases([
+        { n: 1, expected: 9 },
+        { n: 2, expected: 9009 },
+        { n: 3, expected: 906609 }
+    ])
+    .useTitleTemplate(true)
+    .test("largest palindrome product test, n=<%= n %>", function (params) {
+        var ret = largestPalindromeProduct(params.n);
+        equal(ret, params.expected);
+    });
+*/
