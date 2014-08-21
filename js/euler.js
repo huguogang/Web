@@ -24,6 +24,101 @@ function multiplesOfThreeAndFive(n) {
     return sum;
 }
 
+//find all factors of n
+function findFactors(n) {
+    var factors = [];
+    var sq = Math.sqrt(n);
+    var i;
+    for (i = 1; i <= sq; i++) {
+        if (n % i === 0) {
+            factors.push(i);
+            if (i < sq) {
+                factors.push(n / i);
+            }
+        }
+    }
+    return factors;
+}
+
+//check if input is prime integer
+function isPrime(n) {
+    if (n === 1) {
+        return true;
+    }
+
+    var sq = Math.sqrt(n);
+    var i;
+    for (i = 2; i <= sq; i++) {
+        if (n % i === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+ * problem 3 largest prime factor
+ */
+function largetPrimeFactor(n) {
+    var i;
+    var factors = findFactors(n);
+    var len = factors.length;
+    //default JS sort is Alphabetical Asending!
+    //Numeric Descending Sort
+    factors.sort(function (n1, n2) {
+        return n1 < n2;
+    });
+    return _.find(factors, function (num) {
+        return isPrime(num);
+    });
+}
+
+//check if a number is palindrome
+//assumption: n is position integer
+function isPalindromeNumber(n) {
+    var head, tail;
+    var digits = [];
+    while (n >= 10) {
+        digits.push(n % 10);
+        n = Math.floor(n / 10);
+    }
+    digits.push(n);
+    head = digits.length - 1;
+    tail = 0;
+    while (head > tail) {
+        if (digits[head] !== digits[tail]) {
+            return false;
+        }
+        head--;
+        tail++;
+    }
+    return true;
+}
+
+/*
+ * problem 4 largest palindrome product 
+ * @param n Number of digits
+ */
+function largestPalindromeProduct(n) {
+    var i, j, product;
+    var min = 1
+        , max = 9;
+    var maxP = 0;
+    for (i = 1; i < n; i++) {
+        min *= 10;
+        max = max * 10 + 9;
+    }
+    for (i = min; i <= max; i++) {
+        for (j = i; j <= max; j++) {
+            product = i * j;
+            if (product > maxP && isPalindromeNumber(product)) {
+                maxP = product;
+            }
+        }
+    }
+    return maxP;
+}
+
 /*
  * problem 14 longest collatz sequence
  */
