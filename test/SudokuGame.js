@@ -78,7 +78,7 @@ QUnit
         },
     ])
     .test("isSolved test", function (params) {
-        var b = parseBoard(params.s);
-        var ret = isSolved(b);
+    	var s = sudoku(params.s);
+        var ret = s.isSolved();
         equal(ret, params.expected);
     });
