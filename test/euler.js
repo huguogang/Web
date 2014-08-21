@@ -71,7 +71,6 @@ QUnit.test("powerful digit counts", function () {
     var expected = 49;
     equal(ret, expected);
 });
- */
 QUnit
     .cases([
         { n: 2, expected: 1 },
@@ -89,3 +88,14 @@ QUnit
         var ret = longestCollatzSequence(params.n);
         equal(ret, params.expected);
     });
+ */
+QUnit
+.cases([
+    { n: 3, expected: 2 },
+    { n: 4000000, expected: 4613732 }
+])
+.useTitleTemplate(true)
+.test("even fibonacci number test, n=<%= n %>", function (params) {
+    var ret = evenFibonacciNumbers(params.n);
+    equal(ret, params.expected);
+});

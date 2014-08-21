@@ -25,6 +25,25 @@ function multiplesOfThreeAndFive(n) {
 }
 
 /*
+ * problem 2 even fibonacci numbers
+ */
+function evenFibonacciNumbers(n) {
+	var fib;
+	var p = 2 		//previous
+		, pp = 1  	//two back
+		, sum = 2;
+	
+	//assuming n > 2
+	while((fib = p + pp) <= n) {
+		if(fib % 2 === 0) {
+			sum += fib;
+		}
+		pp = p;
+		p = fib;
+	}
+	return sum;
+}
+/*
  * problem 14 longest collatz sequence
  */
 function longestCollatzSequence(searchMax) {
