@@ -57,7 +57,7 @@ QUnit
     equal(b[8][2], 5);
     });
     */
-
+/*
 QUnit
     .cases([
         {
@@ -80,5 +80,32 @@ QUnit
     .test("isSolved test", function (params) {
     	var s = sudoku(params.s);
         var ret = s.isSolved();
+        equal(ret, params.expected);
+    });
+*/
+QUnit
+    .cases([
+        //{
+        //    s: '003020600 900305001 001806400 008102900 700000008 006708200 002609500 800203009 005010300',
+        //    expected: false
+        //},
+        {
+            s: '083 921 657\
+                967 345 821\
+                251 876 493\
+                548 132 976\
+                729 564 138\
+                136 798 245\
+                372 689 514\
+                814 253 769\
+                695 417 382',
+            expected: true
+        },
+    ])
+    .test("isSolved test", function (params) {
+        var s = sudoku(params.s);
+        s.solve();
+        var ret = s.isSolved();
+        console.log(s);
         equal(ret, params.expected);
     });

@@ -14,43 +14,215 @@
  *    - puzzle generator
  *    - responsive: smaller screen, landscape/portrait
  */
+/*
+ * get a sudoku solver object.
+ * @param init  Initial board setup
+ */
 function sudoku(init) {
+    //structure of each cell
+    //  - value: 0 for unknow cell, 1 - 9 for known cells
+    //  - row: row index in board
+    //  - col: col index in board
+    //  - units: array of indice of units this cell belongs to (row, col, block)
+    //  - candidates: array of all candidates for unknown cells, 
+    //  - type: 0-given, -1-unknown, 1-sure, 2-unsure
+    //  - candidateLookup: array of length 9, value 0 means eliminated
+    
+    //2-D array view into the board, 9 X 9
 	var board = [];
+	//1-D array view into the board (left to right, top to bottom), total 81 
+	var cells = [];
+	//Unit view (rows, columns, blocks) of the board, total 27
+	// 0 - 8: rows from top to bottom
+	// 9 - 17: columns from left to right
+	// 18 - 26: blocks, left top going right then down
+	var units = [];
+	//all solved cells (include unsure results)
+	var knownCells = [];
 	
+    /*
+     * set board
+     * @param s  String representation of the board 
+     */
+    var setBoard = function(s) {
+        var zero = '0'.charCodeAt(0);
+        var str = s.replace(/[^0-9]/g, '');
+        var row = [];
+        var i, cell, value;
+        var rowN = -1, colN = 0;
+        //reset 
+        board.length = 0;
+        cells.length = 0;
+        units.length = 0;
+        knownCells.length = 0;
+        
+        for (i = 0; i < str.length; i++) {
+            if (i % 9 === 0) {
+                //create a new row
+                row = [];
+                board.push(row);
+                rowN++;
+                colN = 0;
+            }
+            value = str.charCodeAt(i) - zero;
+            cell = {
+                value: value,
+                row: rowN,  //row index in 2-D array
+                col: colN,  //col index in 2-D array
+                units: [
+                    //row unit
+                    rowN, 
+                    //col unit
+                    9 + colN, 
+                    //block unit
+                    Math.floor(rowN/3) * 3 + Math.floor(colN/3) + 18]
+                };
+            if(value > 0) {
+                cell.type = 0; //given value
+                knownCells.push(cell);
+            }
+            else {
+                cell.type = -1; //unknown
+                cell.candidateLookup = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+                cell.candidates = [1,2,3,4,5,6,7,8,9];
+            }
+            row.push(cell);
+            cells.push(cell);
+            colN++;
+        }
+        //scan for units
+        for(i = 0; i < 9; i++) {
+            units[i] = getRow(i);
+            units[i + 9] = getCol(i);
+            units[i + 18] = getBlock(i);
+        }
+    };
+    
 	/*
 	 * Sudoku solver @param board A 2-dimension array of size 9X9, 0 means
 	 * unknown @returns A 2-dimension array of size 9X9 with solution
 	 */
 	var solve = function() {
-		// expand each cell to
-		// - val
-		// - row
-		// - col
-		// - candidates (9 elements array)
-		// - type: given, sure, not sure
-		return [ [ 0 ] ];
+        var changedCells = elimination(knownCells);	    
+	    //var solvedCells = singleCandidate(cells);
+	    var solvedCells = singlePosition(units);
+	    console.log(changedCells);
+	    _.each(solvedCells, function(cell) {
+	       knownCells.push(cell); 
+	    });
+	};
+	
+	/*
+	 * eliminate candidates from peers of given known cells
+	 * @return Array of changed cells 
+	 */
+	var elimination = function(knownCells) {
+	    var changedCells = [];
+	    _.each(knownCells, function(knownCell) {
+            //exclude value from its unit
+            _.each(knownCell.units, function(unitIndex) {
+               var unit = units[unitIndex];
+               _.each(unit, function(cell) {
+                  if(cell.value === 0 && 
+                      cell.candidateLookup[knownCell.value -1] > 0) {
+                      cell.candidateLookup[knownCell.value - 1] = 0;
+                      changedCells.push(cell);
+                  } 
+               });
+            });
+        });
+        _.each(changedCells, function(cell) {
+           cell.candidates = getCandidates(cell.candidateLookup); 
+        });
+        return uniqueCells(changedCells);
+	};
+	
+	var getCandidates = function(candidateLookup) {
+	    var c = []; //candidates array
+        _.each(candidateLookup, function(ele, eleIndex, arr) {
+           if(ele > 0) {
+               c.push(eleIndex + 1);
+           } 
+        });
+        return c;
+	};
+	/*
+	 * scan given cells, apply single candidate rule. 
+	 *   If a cell only has one candidate value, the cell has 
+	 *   to be that value.
+	 * @return Array of sovled cells.
+	 */
+	var singleCandidate = function(cells) {
+	    var solvedCells = [];
+	    _.each(cells, function(cell) {
+	        if(cell.value > 0) {
+	            return; //it's known cell
+	        }
+	        if(cell.candidates.length === 1) {
+	            cell.value = cell.candidates[0];
+	            solvedCells.push(cell); 
+	        }
+	    });
+	    return solvedCells;
 	};
 
+    /*
+     * scan the given units, apply single position rule.
+     *   If a units only have one position that is candidate of a number, that
+     *   cell has to have the value.
+     * 
+     * @return Array of newly solved cells.
+     */
+    var singlePosition = function(units) {
+        var solvedCells = [];
+        _.each(units, function(unit) {
+            var cellLookup = {};
+            _.each(unit, function(cell){
+               if(cell.value === 0) {
+                   _.each(cell.candidates, function(candidate) {
+                      if(!cellLookup[candidate]) {
+                          cellLookup[candidate] = [];
+                      } 
+                      cellLookup[candidate].push(cell);
+                   });
+               } 
+            });
+            _.each(cellLookup, function(cells, candidate) {
+                if(cells.length === 1) {
+                    cells[0].value = candidate;
+                    solvedCells.push(cells[0]);                    
+                }
+            });
+        });
+        return solvedCells;
+    };
+    
+    /* 
+     * remove duplicates, return set of unique cells
+     */
+    var uniqueCells = function(cells) {
+        var lookup = {};
+        var ret = _.filter(cells, function(cell) {
+            var key = '' + cell.row + cell.col;
+            if(lookup[key]) {
+                return false;
+            }
+            else {
+                lookup[key] = 1;
+                return true;
+            }
+        });
+        return ret;
+    };
+    
 	/*
 	 * check if board is solved
 	 */
 	var isSolved = function() {
 		var i;
 		var nineNumbers;
-		for (i = 0; i < 9; i++) {
-			nineNumbers = getRow(i);
-			console.log(nineNumbers);
-			if (!check9Numbers(nineNumbers)) {
-				return false;
-			}
-			nineNumbers = getCol(i);
-			console.log(nineNumbers);
-			if (!check9Numbers(nineNumbers)) {
-				return false;
-			}
-			nineNumbers = getBlock(i);
-			console.log(nineNumbers);
-			if (!check9Numbers(nineNumbers)) {
+		for (i = 0; i < 27; i++) {
+			if (!check9Numbers(units[i])) {
 				return false;
 			}
 		}
@@ -109,29 +281,34 @@ function sudoku(init) {
 		}
 		return true;
 	};
-
-	var setBoard = function(s) {
-		var zero = '0'.charCodeAt(0);
-		var str = s.replace(/[^0-9]/g, '');
-		var i;
-		var row = [];
-		board.length = 0; //clear board
-		for (i = 0; i < str.length; i++) {
-			if (i % 9 === 0) {
-				row = [];
-				board.push(row);
-			}
-			row.push({value: str.charCodeAt(i) - zero});
-		}
+	
+	var printBoard = function() {
+	    var row, col;
+	    var output = '';
+	    for(row = 0; row < 9; row++) {
+	        if(row %3 === 0) {
+	            output += '-------------------------\n';
+	        }
+	        for(col = 0; col < 9; col++) {
+	            if(col % 3 === 0) {
+	                output += '| ';
+	            }
+	            output += board[row][col].value + ' ';
+	        }
+	        output += '|\n';
+	    }
+	    output += '-------------------------\n';
+	    console.log(output);
 	};
 	
 	if(init) {
 		setBoard(init);
-		console.log(board);
 	}
 	// public interface
 	return {
+		setBoard: setBoard,
+		printBoard: printBoard,
 		isSolved: isSolved,
-		setBoard: setBoard
+		solve: solve
 	};
 };
