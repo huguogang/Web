@@ -367,6 +367,69 @@ function integerRightTriangles(n) {
     return maxSum;
 }
 
+//help, xor key over data
+function xorDecode(data, key) {
+    var ret = [];
+    var keyLen = key.length;
+    var i, dd;
+    for(i = 0; i < data.length; i++) {
+        ret.push(data[i] ^ key[i % keyLen]);
+    }
+    return ret;
+}
+/*
+ * problem 59 xor decryption
+ */
+function xorDecryption(encryptedData) {
+    var SPACE = ' '.charCodeAt(0);
+    var EXCLUDE = [
+        '~'.charCodeAt(0),
+        '|'.charCodeAt(0),
+        '%'.charCodeAt(0),
+        '{'.charCodeAt(0),
+        '}'.charCodeAt(0),
+        '^'.charCodeAt(0)
+    ];
+    var a = 'a'.charCodeAt(0);
+    var z = 'z'.charCodeAt(0);
+    var key = [];
+    var threshold = encryptedData.length * 0.05;
+    var decryptedData;
+    var i, j, k, nSpace;
+    for(i = a; i <= z; i++) {
+        for(j = a; j <= z; j++) {
+            for(k = a; k <= z; k++) {
+                key = [i, j, k];
+                decryptedData = xorDecode(encryptedData, key);
+                if(_.some(decryptedData, function(ch){
+                    return (ch < 32 || _.contains(EXCLUDE, ch));
+                })) {
+                    //ASCII code 31 or under are not displayable
+                    continue;
+                }
+                //a rough criteria: space character should be
+                //more than 5 percent of the total length
+                nSpace = _.reduce(decryptedData, function(count, ch) {
+                    return (ch === SPACE ? count + 1 : count);
+                }, 0);
+                if(nSpace > threshold) {
+                    s = String.fromCharCode(i, j, k);
+                    console.log('\n-------------------------\nkey: ', s);
+                    s = '';
+                    _.each(decryptedData, function(ch) {
+                        s = s + String.fromCharCode(ch);
+                    });
+                    
+                    //after inspection by eye, key is found to be 'god'
+                    console.log(s);
+                    //sum
+                    console.log(_.reduce(decryptedData, function(memo, ch) {return ch + memo;}, 0));
+                    debugger;
+                }
+            }
+        }
+    }
+}
 /*
  * problem 63 powerful digit counts
  */
