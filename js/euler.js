@@ -42,13 +42,19 @@ function findFactors(n) {
 
 //check if input is prime integer
 function isPrime(n) {
-    if (n === 1) {
+    if (n <= 1) {
+        return false;
+    }
+    if(n === 2) {
         return true;
     }
-
+    if(n%2 === 0) {
+        return false;
+    }
+    
     var sq = Math.sqrt(n);
     var i;
-    for (i = 2; i <= sq; i++) {
+    for (i = 3; i <= sq; i = i + 2) {
         if (n % i === 0) {
             return false;
         }
@@ -138,6 +144,156 @@ function evenFibonacciNumbers(n) {
 	}
 	return sum;
 }
+
+/*
+ * decompose a natural number into product of prime numbers
+ * 
+ * @return Array of prime factors
+ */
+function primeFactorization(n) {
+    var ret = [];
+    var divider = 2;
+    while(n > 1) {
+        if(n%divider === 0) {
+            ret.push(divider);
+            n = n/divider;
+        }
+        else {
+            divider++;
+        }
+    }
+    return ret;
+}
+/*
+ * problem 4 smallest multiple
+ */
+function smallestMultiple(n) {
+    var tmp, i;
+    var union = {};
+    var factors = {};
+    var product = 1;
+    for(i = 2; i <= n; i++) {
+        tmp = primeFactorization(i);
+        factors = {};
+        tmp.forEach(function(factor) {
+            if(!factors[factor]) {
+                factors[factor] = 0;
+            }
+            factors[factor] += 1;
+        });
+        _.each(factors, function(count, factor) {
+           if(!union[factor]) {
+               union[factor] = count;
+           } 
+           else if(union[factor] < count){
+               union[factor] = count;
+           }
+        });
+    }
+    _.each(union, function(count, factor) {
+         product *= Math.pow(factor, count);    
+    });
+    return product;
+}
+/*
+ * problem 6 sum square difference
+ */
+function sumSquareDifference(n) {
+    var sumOfSquares = 0,
+        squareOfSum,
+        sum = 0,
+        i;
+    for(i = 1; i <= n; i++) {
+        sum += i;
+        sumOfSquares += i * i;
+    }
+    squareOfSum = sum * sum;
+    return squareOfSum - sumOfSquares;
+}
+
+/*
+ * problem 7 10001st prime
+ */
+function _10001stPrime(n) {
+    var prime,
+        count = 0,
+        number = 2;
+    while(count < n) {
+        if(isPrime(number)) {
+            prime = number;
+            count++;
+        }
+        number++;
+    }
+    return prime;
+}
+
+/*
+ * problem 8 largest product in a series
+ */
+function largestProductInASeries(s, n) {
+    var ZERO = '0'.charCodeAt(0);
+    var i, digit;
+    
+    var arr = [],
+        max = 0,    //could be true for all 0 digits case
+        length = 0,
+        product = 1;
+    //convert s to number array
+    for(i = 0; i < s.length; i++) {
+        digit = s.charCodeAt(i) - ZERO;
+        arr.push(digit);
+        if(digit === 0) {
+            //reset
+            length = 0;
+            product = 1;
+            continue;
+        }
+        product *= digit;
+        length++;
+        if(length < n) {
+            //still building up the first product
+            continue;
+        }
+        if(length > n) {
+            product = product / arr[i - n];
+        }
+        if(product > max) {
+            max = product;
+        }
+    }
+    return max;
+}
+/*
+ * problem 9 Special Pythagorean triplet
+ */
+function specialPythagoreanTriplet() {
+    var SUM = 1000;
+    var a, b, c;
+    //only search the case a < b < c
+    for(c = Math.ceil(1000/3); c < 1000/2; c++) {
+        for(b = Math.ceil((SUM - c)/2); b < c; b++) {
+            a = SUM - c - b;
+            if(a*a + b*b - c*c === 0) {
+                console.log(a, b, c);
+                return a * b * c;
+            }
+        }
+    }
+}
+/*
+ * problem 10 summation of primes
+ */
+function summationOfPrimes(n) {
+    var sum = 0;
+    var i;
+    for(i = 2; i <= n; i++) {
+        if(isPrime(i)) {
+            sum += i;
+        }
+    }
+    return sum;
+}
 /*
  * problem 14 longest collatz sequence
  */
@@ -181,6 +337,34 @@ function longestCollatzSequence(searchMax) {
         }
     }
     return maxNum;
+}
+
+/*
+ * problem 39 Integer right triangles
+ */
+function integerRightTriangles(n) {
+    var sum = n;
+    var a, b, c;
+    var count = 0,
+        maxCount = 0,
+        maxSum = 0;
+    for(sum = 1; sum <= n; sum++) {
+        count = 0;
+        //only search the case a < b < c
+        for(c = Math.ceil(sum/3); c < sum/2; c++) {
+            for(b = Math.ceil((sum - c)/2); b < c; b++) {
+                a = sum - c - b;
+                if(a*a + b*b - c*c === 0) {
+                    count++;
+                }
+            }
+        }
+        if(count > maxCount) {
+            maxCount = count;
+            maxSum = sum;
+        }
+    }
+    return maxSum;
 }
 
 /*
@@ -230,13 +414,15 @@ function bigInteger(initValue) {
         isFlat = true;
     };
     var sum = function () {
-        if (!isFlat) {
-            merge(result);
-        }
+        finish();
+        
         return _.reduce(result, function (memo, num) {
             return memo + num;
         }, 0);
     };
+    /*
+     * multiply with another integer
+     */
     var multiply = function (n) {
         isFlat = false;
 
@@ -252,13 +438,56 @@ function bigInteger(initValue) {
         return this;
     };
     var finish = function () {
-        merge(result);
+        if (!isFlat) {
+            merge(result);
+        }
         return this;
+    };
+    /*
+     * add another big integer
+     */
+    var add = function(other) {
+        isFlat = false;
+        var arrOther = other.result();   
+        _.each(arrOther, function(digit, index) {
+            if(index >= result.length) {
+                result[index] = 0;
+            }
+            result[index] += digit;
+            if(result[index] > MAX) {
+                needMerge = true;
+            } 
+        });
+        if(needMerge) {
+            merge(result);
+        }
+        return this;
+    };
+    var print = function() {
+        finish();
+        var i;
+        var s = '';
+        for(i = result.lengt - 1; i >=0; i--) {
+            s += result[i];
+        }
+        console.log(s);
+    };
+    var length = function() {
+        finish();
+        return result.length;
+    };
+    var getResult = function() {
+        finish();
+        return result;
     };
     return {
         multiply: multiply,
         sum: sum,
-        finish: finish
+        finish: finish,
+        add: add,
+        print: print,
+        length: length,
+        result: getResult
     };
 };
 /*
@@ -306,6 +535,25 @@ function powerfulDigitSum(n) {
     }
     return maxSum;
 }
+
+/*
+ * problem 25 1000-digit Fibonacci number
+ */
+function _1000DigitFibonacciNumber(n) {
+    var p = bigInteger(1);
+    var pp = bigInteger(1);
+    var count = 2;
+    var tmp;
+    while(p.length() < n) {
+        pp.add(p);
+        tmp = pp;
+        pp = p;
+        p = tmp;
+        count++;
+    }    
+    return count;
+}
+
 /*
  * problem 191 prize strings
  */
