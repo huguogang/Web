@@ -618,6 +618,92 @@ function _1000DigitFibonacciNumber(n) {
 }
 
 /*
+ * problem 79 passcode derivation
+ */
+function passcodeDerivation(answers) {
+    var minCode = [];
+    var min = ''; //indication of no answer yet
+    var code = []; //code of the current search path
+    
+    var data = _.map(answers, function(answer) {
+       return { 
+           answer: answer,
+           currentPos: 0
+       }; 
+    });  
+    var numAnswers = 0;
+    var numPrune1s = 0;
+    var numPrune2s = 0;
+    
+    var searchR = function(data) {
+        //remove code that are already covered
+        var arr = _.filter(data, function(row) {
+            return (row.currentPos < row.answer.length);
+        });
+        if(arr.length === 0) {
+            //termination condition: all digits are covered
+            if(min === '' || code.length < min) {
+                min = code.length;
+                //clone the code
+                minCode = [];
+                _.each(code, function(num) {
+                   minCode.push(num); 
+                });
+                //console.log('found a better solution: ', min);
+                //console.log(minCode);
+            }
+            numAnswers++;
+            return;
+        }
+        if(min!== '' && code.length >= min) {
+            //prune, already worse than current best solution
+            numPrune1s++;
+            return;
+        }
+        //group by the current head of all answers
+        var group = _.groupBy(arr, function(row){
+            return row.answer[row.currentPos];
+        });
+        //start search from the most numerous number
+        group = _.sortBy(group, function(rows, num) {
+            return -rows.length;
+        });
+        if(min !== '' && code.length + group.length >= min) {
+            //prune, total expected length cannot beat the current best solution
+            numPrune2s++;
+            return;
+        }
+        
+        //recursively search all numbers presented in the group
+        _.each(group, function(rows) {
+            var row0, num;
+            row0 = rows[0];
+            var num = row0.answer[row0.currentPos];
+            code.push(num);
+            _.each(rows, function(row) {
+               row.currentPos++; 
+            });          
+            searchR(data);
+            //clean up, ready to switch to search another branch
+            code.pop();
+            _.each(rows, function(row) {
+               row.currentPos--; 
+            });          
+        });
+    };
+    
+    searchR(data);
+    //console.log("number of answers ", numAnswers);
+    //console.log("number of type 1 prunes", numPrune1s);
+    //console.log("number of type 2 prunes", numPrune2s);
+    
+    return {
+        min: min,
+        minCode: minCode
+    };
+}
+
+/*
  * problem 191 prize strings
  */
 function prizeStrings(n) {

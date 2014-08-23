@@ -1,3 +1,16 @@
+//candidates
+// - problem 107    minimal network
+// - problem 122    efficient exponentiation
+// - problem 161    triomenoes
+// - problem 182    RSA encryption
+// - problem 185    number mind
+// - problem 186    connectedness of a network
+// - problem 215    crach free walls
+// - problem 252    convex holes
+// - problem 287    quadtree encoding
+// - problem 300    protein folding
+// - problem 400    fibonacci tree game
+
 QUnit.config.reorder = false;
 /*
 QUnit
@@ -271,16 +284,22 @@ QUnit.test("xor decryption", function() {
 });
 */
 
-//candidates
-// - problem 79     passcode derivation
-// - problem 107    minimal network
-// - problem 122    efficient exponentiation
-// - problem 161    triomenoes
-// - problem 182    RSA encryption
-// - problem 185    number mind
-// - problem 186    connectedness of a network
-// - problem 215    crach free walls
-// - problem 252    convex holes
-// - problem 287    quadtree encoding
-// - problem 300    protein folding
-// - problem 400    fibonacci tree game
+$.ajax({
+    url: 'keylog.txt'
+}).done(function(data) {
+    var ZERO = '0'.charCodeAt(0);
+    var rows = data.split('\n');
+    var answers = _.map(rows, function(row) {
+        var len = row.length;
+        var ret = [];
+        var i;
+        for(i = 0; i < len; i++) {
+            ret.push(row.charCodeAt(i) - ZERO);
+        }        
+        return ret;
+    });
+    QUnit.test("passcode derivation test", function() {
+        var ret = passcodeDerivation(answers);
+        equal(ret.min, 8);            
+    });
+});
