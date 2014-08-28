@@ -764,7 +764,7 @@ function minimalNetwork(matrix) {
 function numberMind(nDigits, guesses) {
     //because it's stated that we have a unique answer, some
     //shortcut are taken
-    var i, j, tmp;
+    var i, j, tmp, tmp1;
     //total count of digits that have guessed right
     var totalMatchingDigits = _.reduce(guesses, function(memo, guess) {
             return guess[1] + memo; 
@@ -785,54 +785,50 @@ function numberMind(nDigits, guesses) {
         //they make fine search candidates with guess count = 0
         //since we're told there is unique solution, corners are cut here
         // -- Only add when there is only one missing number
-        /*if(_.size(tmp) === 9) {
+        if(_.size(tmp) === 9) {
             for(j = 0; j < 10; j++) {
                 if(!tmp[j]) {
                     tmp[j] = [];
                 }
             }
         }
-         */
         //exclude digits that showed up in "0" matching cases
         digitCandidates[i] = []; 
         _.each(tmp, function(guesses, digit) {
            if(!_.some(guesses, function(guess) {
               return (guess[1] == 0); 
            })) {
-                digitCandidates[i].push({digit: digit, count: guesses.length});
+                digitCandidates[i].push({
+                    digit: digit, 
+                    guesses: guesses,
+                    count: guesses.length});
            }
         });
     }
-    var minMax = []; //min and max count that can be reached at each digit (from lsd to msd)
-    var min, max;
-    minMax[nDigits] = {min: 0, max: 0}; //tail boundary condition
+    console.log(digitCandidates);
+    console.log(JSON.stringify(digitCandidates));
+    //for each digits, counts of matches that are possible from right to left
+    var counts = [];
+    counts[nDigits] = {0:0}; //boundary condition 
     for(i = nDigits - 1; i >= 0; i--) {
-        min = _.min(digitCandidates[i], function(candidate) {
-           return candidate.count; 
+        tmp = {};
+        _.each(digitCandidates[i], function(candidate) {
+            return tmp[candidate.count] = candidate.count;
         });
-        min = min.count;
-        max = _.max(digitCandidates[i], function(candidate) {
-           return candidate.count; 
+        //cross product
+        tmp1 = {};
+        _.each(counts[i + 1], function(c1) {
+            _.each(tmp, function(c2) {
+                tmp1[c1 + c2] = c1 + c2;
+            });
         });
-        max = max.count;
-        //accumulate from right to left
-        minMax[i] = {
-            min: min + minMax[i + 1].min, 
-            max: max + minMax[i + 1].max
-        };  
+        counts[i] = tmp1;
     }
-    console.log(JSON.stringify(minMax));
-    //console.log(JSON.stringify(digitCandidates));
+
+    console.log('counts: ', counts);
     //return;
-    /*
-    //search for count candidates for each digit
-    var countCandidates = _.map(digitCandidates, function(candidates) {
-       return _.groupBy(candidates, function(candidate) {
-          return candidate.count; 
-       });
-    });
-    console.log(JSON.stringify(countCandidates));
-    return '';*/
+
+    var maxLoopCount = 1000000;
     var loopCount = 0;
     var answer = [];
     var answerCount = 0; //total matching digits of our count
@@ -846,7 +842,7 @@ function numberMind(nDigits, guesses) {
      */
     var searchR = function(candidates, digit) {
         loopCount++;
-        if(loopCount > 10000000) {
+        if(loopCount > maxLoopCount) {
             console.log('stop loop now');
             console.log(answer);
             console.log(digit);
@@ -887,76 +883,51 @@ function numberMind(nDigits, guesses) {
             //candidates for the search of rest of the digits
             //might be further pruned
             var newCandidates = digitCandidates;
-            //array of guesses
-            //new guesses that met their answer, thus the rest of digits
-            //are excluded from scanning of the following digits
-            var newExclusions = [];
             var isCloned = false;
-            //prune condition
-            // 1. total matching digits so far is too big or too small
-            // 2. some numbers already have too many matching
-            var digitMatch = _.every(guesses, function(guess) {
-                if(guess[1] === 0) {
-                    return true; //ok, should not have any of its digits
-                } 
-                if(guess[2]) {
-                    //they are the new zeros based on recursion so far,
-                    //expanded exclusion during scanning when it met
-                    //count of matching digits
-                    //console.log('it helps');
-                    return true;
-                }
-                var nMatches = 0;
-                var i, tmp;
-                var max = nDigits - digit - 1; //if the rest all match this number 
-                for(i = 0; i <= digit; i++) {
-                    if(answer[i] === guess[0].charAt(i)) {
-                        nMatches++;
+            var remainCount = totalMatchingDigits - answerCount;
+            //it is a count that we can reach
+            if(counts[digit +1][remainCount] === remainCount) {
+                //adjust remaining matching digits
+                _.each(guess.guesses, function(v) {
+                    var i;
+                    v[1] -= 1;
+                    if(v[1] === 0 && digit < nDigits - 1) {
+                        //a new zero, try to prune the search of following digits
+                        if(!isCloned) {
+                            //make a shallow clone
+                            //if any digit's candidates is modified, a clone will
+                            //be made on demand
+                            newCandidates = _.map(digitCandidates, function(candidate) {
+                                return candidate;
+                            });
+                            isCloned = true;
+                        }
+                        //prune candidates for the search following this one
+                        for(i = digit + 1; i < nDigits; i++) {
+                            tmp = v[0].charAt(i); //exclusion
+                            newCandidates[i] = _.reject(newCandidates[i], function(val) {
+                                return val.digit === tmp;
+                            });
+                        }
                     }
-                }
-                if(nMatches === guess[1] && digit < nDigits - 1) {
-                    if(!isCloned) {
-                        //make a shallow clone
-                        //if any digit's candidates is modified, a clone will
-                        //be made on demand
-                        newCandidates = _.map(digitCandidates, function(candidate) {
-                            return candidate;
-                        });
-                        isCloned = true;
-                    }
-                    //prune candidates for the search following this one
-                    for(i = digit + 1; i < nDigits; i++) {
-                        tmp = guess[0].charAt(i); //exclusion
-                        newCandidates[i] = _.reject(newCandidates[i], function(val) {
-                            return val.digit === tmp;
-                        });
-                    }
-                    guess[2] = true; //flag this guess to prevent further scanning
-                    newExclusions.push(guess);
-                    //console.log(newCandidates);
-                    //debugger;
-                }
-                //debugger;
-                return nMatches <= guess[1] && nMatches >= (guess[1] - max);
-            });
-            if(digitMatch &&
-               answerCount <= (totalMatchingDigits - minMax[digit + 1].min) &&
-               answerCount >= (totalMatchingDigits - minMax[digit + 1].max)) {
+                });
                 if(searchR(newCandidates, digit + 1)) {
+                    //found a solution, terminate
                     return true;
                 }
+                //search down this rout failed, rewind
+                _.forEach(guess.guesses, function(v) {
+                    v[1] += 1;
+                });
             }
             //rewind
             answerCount -= guess.count;
-            _.forEach(newExclusions, function(guess) {
-               guess[2] = false; 
-            });
         });
     };
 
     var searchResult = searchR(digitCandidates, 0);
-    console.log(searchResult);
-    console.log('loopCount', loopCount);
+    console.log('search result: ', searchResult);
+    console.log('loop Count', loopCount);
     return answer.join('');
 }
 /*
