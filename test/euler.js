@@ -5,7 +5,7 @@
 // - problem 182    RSA encryption
 // - problem 185    number mind
 // - problem 186    connectedness of a network
-// - problem 215    crach free walls
+// - problem 215    crack free walls
 // - problem 252    convex holes
 // - problem 287    quadtree encoding
 // - problem 300    protein folding
