@@ -1,5 +1,4 @@
 //candidates
-// - problem 107    minimal network
 // - problem 122    efficient exponentiation
 // - problem 161    triomenoes
 // - problem 182    RSA encryption
@@ -283,7 +282,7 @@ QUnit.test("xor decryption", function() {
     //after inspection 
 });
 */
-
+    /*
 $.ajax({
     url: 'keylog.txt'
 }).done(function(data) {
@@ -302,4 +301,88 @@ $.ajax({
         var ret = passcodeDerivation(answers);
         equal(ret.min, 8);            
     });
-});
+    });
+    QUnit
+        .cases([
+            //edge weights are unique
+            { input: 'p107_network_test.txt', expected: 150 },
+            //edge weights are not unique
+            { input: 'p107_network.txt', expected: 259679 }
+        ])
+        .useTitleTemplate(true)
+        .asyncTest("minimal network test, input file =<%= input %>",
+        function (params, assert) {
+            $.ajax({
+                url: params.input
+            }).done(function(data) {
+                var matrix = utils.readCSV(data);
+                console.log(matrix);
+                var ret = minimalNetwork(matrix);
+                equal(ret, params.expected);            
+                QUnit.start();
+            });
+        });
+    */
+    QUnit
+        .cases([
+             {    
+                nDigits: 5,
+                guesses: [
+                    ['90342', 2],
+                    ['70794', 0],
+                    ['39458', 2],
+                    ['34109', 1],
+                    ['51545', 2],
+                    ['12531', 1]
+                ],
+                expected: '39542'
+            }
+            ///*
+             ,
+            { 
+                nDigits: 16,
+                guesses: [
+                    ['5616185650518293', 2], ['3847439647293047', 1],
+                    ['5855462940810587', 3], ['9742855507068353', 3],
+                    ['4296849643607543', 3], ['3174248439465858', 1],
+                    ['4513559094146117', 2], ['7890971548908067', 3],
+                    ['8157356344118483', 1], ['2615250744386899', 2],
+                    ['8690095851526254', 3], ['6375711915077050', 1],
+                    ['6913859173121360', 1], ['6442889055042768', 2],
+                    ['2321386104303845', 0], ['2326509471271448', 2],
+                    ['5251583379644322', 2], ['1748270476758276', 3],
+                    ['4895722652190306', 1], ['3041631117224635', 3],
+                    ['1841236454324589', 3], ['2659862637316867', 2]],
+                expected: '1'}
+              //  */
+        ])
+        .useTitleTemplate(true)
+        .test("number mind test, nDigits=<%= nDigits %>", function (params) {
+            var ret = numberMind(params.nDigits, params.guesses);
+            equal(ret, params.expected);
+        });
+    
+    
+   /* 
+    nDigits = 5;
+    guesses = [['90342', 2],
+                    ['70794', 0],
+                    ['39458', 2],
+                    ['34109', 1],
+                    ['51545', 2],
+                    ['12531', 1]];
+nDigits= 16;
+guesses = [ ['5616185650518293', 2], ['3847439647293047', 1],
+    ['5855462940810587', 3], ['9742855507068353', 3],
+    ['4296849643607543', 3], ['3174248439465858', 1],
+    ['4513559094146117', 2], ['7890971548908067', 3],
+    ['8157356344118483', 1], ['2615250744386899', 2],
+    ['8690095851526254', 3], ['6375711915077050', 1],
+    ['6913859173121360', 1], ['6442889055042768', 2],
+    ['2321386104303845', 0], ['2326509471271448', 2],
+    ['5251583379644322', 2], ['1748270476758276', 3],
+    ['4895722652190306', 1], ['3041631117224635', 3],
+    ['1841236454324589', 3], ['2659862637316867', 2]];
+numberMind(nDigits, guesses);
+
+    */
