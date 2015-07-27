@@ -1,45 +1,35 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="lib/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet"/>
-<title>Snake Game - HTML 5 Canvas</title>
-</head>
-<body>
-<div class="container">
-<br/>
-	<canvas id="canvas1" width="800" height="600" style="border:1px solid #000000;"></canvas>
-	<p>
-	<button type="button" class="btn btn-primary">New Game</button>
-	<button type="button" class="btn btn-primary">Pause</button>
-	</p>
-	<div class="well">
-		<h1>Snake Game</h1>
-		Game control
-		<ul class="list-group">
-			<li class="list-group-item list-group-item-info">
-			Swipe left, right, up, down
-			</li>
-			<li class="list-group-item list-group-item-info">
-			Arrow left, right, up, down
-		    </li>
-		    <li class="list-group-item list-group-item-info">
-		    a:left d:right w:up s:down
-		    </li>
-		    <li class="list-group-item list-group-item-info">
-		    j:left l:right i:up k:down
-		    </li>
-		</ul>
-	</div>
-</div>
-	<!-- libraries -->
-	<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="lib/jquery.hotkeys.js"></script>
-	<script type="text/javascript" src="lib/jquery.touchSwipe.min.js"></script>
-	<script type="text/javascript" src="lib/underscore-min.js"></script>
-	
-	<!-- my content -->
-	<script type="text/javascript" src="js/SnakeGame.js"></script>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="lib/bootstrap-3.2.0/css/bootstrap.min.css" rel="stylesheet" />
+		<title>Snake Game - HTML 5 Canvas</title>
+	</head>
+	<body>
+		<div class="container">
+			<br/>
+			<canvas id="canvas1" width="800" height="600" style="border:1px solid #000000;"></canvas>
+			<p>
+				<button type="button" class="btn btn-primary">New Game</button>
+				<button type="button" class="btn btn-primary">Pause</button>
+			</p>
+			<div class="well">
+				<h1>Snake Game</h1>Game control
+				<ul class="list-group">
+					<li class="list-group-item list-group-item-info">Swipe left, right, up, down</li>
+					<li class="list-group-item list-group-item-info">Arrow left, right, up, down</li>
+					<li class="list-group-item list-group-item-info">a:left d:right w:up s:down</li>
+					<li class="list-group-item list-group-item-info">j:left l:right i:up k:down</li>
+				</ul>
+			</div>
+		</div>
+		<!-- libraries -->
+		<script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="lib/jquery.hotkeys.js"></script>
+		<script type="text/javascript" src="lib/jquery.touchSwipe.min.js"></script>
+		<script type="text/javascript" src="lib/underscore-min.js"></script>
+		<!-- my content -->
+		<script type="text/javascript" src="js/SnakeGame.js"></script>
+	</body>
