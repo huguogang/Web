@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="lib/bootstrap-3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
+		<title>Developer Tool</title>
+	</head>
+	<body>
+		<div class="page-header">
+			<h1>Developer Tools
+				<small>Text manipulation for coders</small>
+			</h1>
+		</div>
+		<div class="container-fluid">
+			<div class="panel panel-default">
+				<div class="panel-heading">Template</div>
+				<div class="panel-body">
+					<textarea class="form-control" rows="5"></textarea>
+				</div>
+			</div>
+			<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
+			-->
+			<button type="button" class="btn btn-primary btn-lg" id="btnGenCode">Generate code</button>
+			<div class="row">
+				<div class="col-md-4">
+					<div class="panel panel-default">
+						<div class="panel-heading">Text 1</div>
+						<div class="panel-body">
+							<textarea class="form-control" rows="10"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<textarea class="form-control" rows="10"></textarea>
+				</div>
+				<div class="col-md-4">
+					<textarea class="form-control" rows="10"></textarea>
+				</div>
+			</div>
+		</div>
+		<!-- Modal: code after apply input to the template -->
+		<!-- TODO: 1. copy button: * http://zeroclipboard.org/ -->
+		<div class="modal fade" id="codeGenResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">modal body
+						<div class="well-lg">blah ...</div>
+						<button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me.">Copy to Clipboard</button>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- libraries -->
+		<script src="lib/jquery-2.1.1.min.js"></script>
+		<script src="lib/jquery.hotkeys.js"></script>
+		<script src="lib/jquery.touchSwipe.min.js"></script>
+		<script src="lib/underscore-min.js"></script>
+		<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+		<script src="lib/zeroclipboard-2.2.0/ZeroClipboard.min.js"></script>
+		<script type="text/javascript" src="js/DevTool.js"></script>
+		<!-- my content -->
+	</body>
