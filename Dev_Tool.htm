@@ -18,7 +18,7 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Template</div>
 				<div class="panel-body">
-					<textarea class="form-control" rows="5"></textarea>
+					<textarea id="template" class="form-control" rows="5"></textarea>
 				</div>
 			</div>
 			<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
@@ -29,7 +29,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Text 1</div>
 						<div class="panel-body">
-							<textarea class="form-control" rows="10"></textarea>
+							<textarea id="input1" class="form-control" rows="10"></textarea>
 						</div>
 					</div>
 				</div>
@@ -52,9 +52,9 @@
 						</button>
 						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
 					</div>
-					<div class="modal-body">modal body
-						<div class="well-lg">blah ...</div>
-						<button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me.">Copy to Clipboard</button>
+					<div class="modal-body">
+						<textarea id="templateOutput" class="form-control" rows="30"></textarea>
+						<button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me." class="hidden">Copy to Clipboard</button>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
