@@ -17,18 +17,22 @@ $(document).ready(function () {
 
 	$('#btnGenCode').click(function () {
 		var template = $("#template").val();
-		var inputIdx = 1;
-		var input = $("#input" + inputIdx).val();
-		var arr = _(input.split("\n"))
-			.filter(function (e) { return e && e !== "" })
-			.map(function (e) { return e.trim() + 1 });
 		var output = [];
-		var i;
-		for (i = 0; i < arr.length; ++i) {
-			if (!output[i]) {
-				output[i] = template;
+		var result = "";
+		var inputIdx;
+		for(inputIdx = 1; inputIdx <= 3; ++inputIdx) {
+			// TODO: result is messy if the text boxes does not have equal number of rows
+			debugger;
+			var input = $("#input" + inputIdx).val();
+			var arr = _(input.split("\n"))
+				.map(function (e) { return e.trim()});
+			var i;
+			for (i = 0; i < arr.length; ++i) {
+				if (!output[i]) {
+					output[i] = template;
+				}
+				output[i] = output[i].replace("$" + inputIdx, arr[i]);
 			}
-			output[i] = output[i].replace("$" + 1, arr[i]);
 		}
 		//TODO
 		// Expand to any text area input
@@ -51,9 +55,7 @@ $(document).ready(function () {
 		// Option to trim string or not
 		// Pretty JSON? or even show it in tree?
 		// save/retrieve templates (what is the backend?)
-		
-		debugger;
-		var result = output.join('');
+		result = output.join('');
 		$("#templateOutput").val(result);
 		$('#codeGenResultModal').modal('show');
 		$('#copy-button').attr('data-clipboard-text', result);
