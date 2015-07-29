@@ -7,6 +7,13 @@
 		<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="lib/bootstrap-3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
 		<title>Developer Tool</title>
+		<style>
+#copy-button:hover {
+    color: #fff;
+    background-color: #563d7c;
+    border-color: #563d7c
+}
+		</style>
 	</head>
 	<body>
 		<div class="page-header">
@@ -20,10 +27,10 @@
 				<div class="panel-body">
 					<textarea id="template" class="form-control" rows="5"></textarea>
 				</div>
+				<button type="button" class="btn btn-primary btn-xs" id="btnGenCode">Generate code</button>
 			</div>
 			<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
 			-->
-			<button type="button" class="btn btn-primary btn-lg" id="btnGenCode">Generate code</button>
 			<div class="row">
 				<div class="col-md-4">
 					<div class="panel panel-default">
@@ -63,7 +70,7 @@
 						<h4 class="modal-title" id="myModalLabel">Generated Code</h4>
 					</div>
 					<div class="modal-body">
-						<textarea id="templateOutput" class="form-control" rows="30"></textarea>
+						<textarea id="templateOutput" class="form-control" rows="25"></textarea>
 						<button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me." class="hidden">Copy to Clipboard</button>
 					</div>
 					<div class="modal-footer">

@@ -20,12 +20,12 @@ $(document).ready(function () {
 		var output = [];
 		var result = "";
 		var inputIdx;
-		for(inputIdx = 1; inputIdx <= 3; ++inputIdx) {
+		for (inputIdx = 1; inputIdx <= 3; ++inputIdx) {
 			// TODO: result is messy if the text boxes does not have equal number of rows
 			debugger;
 			var input = $("#input" + inputIdx).val();
 			var arr = _(input.split("\n"))
-				.map(function (e) { return e.trim()});
+				.map(function (e) { return e.trim() });
 			var i;
 			for (i = 0; i < arr.length; ++i) {
 				if (!output[i]) {
