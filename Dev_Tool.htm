@@ -7,13 +7,6 @@
 		<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="lib/bootstrap-3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
 		<title>Developer Tool</title>
-		<style>
-#copy-button:hover {
-    color: #fff;
-    background-color: #563d7c;
-    border-color: #563d7c
-}
-		</style>
 	</head>
 	<body>
 		<div class="page-header">
@@ -27,14 +20,46 @@
 				<div class="panel-body">
 					<textarea id="template" class="form-control" rows="5"></textarea>
 				</div>
-				<button type="button" class="btn btn-primary btn-xs" id="btnGenCode">Generate code</button>
+				<button type="button" class="btn btn-primary btn-xs" id="btnGenCode" title="Expand template for each input line below.">Generate code</button>
+				<button type="button" class="btn btn-primary btn-xs" id="btnToB64">Base 64 Encode</button>
+				<button type="button" class="btn btn-primary btn-xs" id="btnFromB64">Base 64 Decode</button>
+				<button type="button" class="btn btn-primary btn-xs" id="btnGenCode">URL Encode</button>
+				<button type="button" class="btn btn-primary btn-xs" id="btnGenCode">URL Decode</button>
 			</div>
 			<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
 			-->
 			<div class="row">
 				<div class="col-md-4">
 					<div class="panel panel-default">
-						<div class="panel-heading">Data 1</div>
+						<div class="panel-heading">
+							<!-- Single button -->
+							<div class="btn-group">
+								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions
+									<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a href="#">to camelCase</a>
+									</li>
+									<li>
+										<a href="#">to CamelCase</a>
+									</li>
+									<li>
+										<a href="#">to lower_underscore</a>
+									</li>
+									<li>
+										<a href="#">to Upper</a>
+									</li>
+									<li>
+										<a href="#">to Lower</a>
+									</li>
+									<li role="separator" class="divider"></li>
+									<li>
+										<a href="#">MySQL -> Java</a>
+									</li>
+								</ul>
+							</div>
+						</div>
 						<div class="panel-body">
 							<textarea id="input1" class="form-control" rows="10"></textarea>
 						</div>
