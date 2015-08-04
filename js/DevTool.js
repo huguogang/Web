@@ -15,7 +15,15 @@ $(document).ready(function () {
 		$('#copy-button').attr('data-clipboard-text', result);
 		$('#codeGenResultModal').modal('show');
 	};
-
+	var toUpperCamelCase = function(str) {
+		var arr = str.split(/[-_ ]/);
+		return _.map(arr, function(ele) {
+			 var ret = ele.toLowerCase();
+			 if(ret) {
+				 return ret.substr(0, 1).toUpperCase() + ret.substr(1);
+			 }
+		}).join("");
+	};
 	cpButton.on("ready", function (readyEvent) {
 		$("#copy-button").removeClass("hidden");
 
@@ -32,10 +40,13 @@ $(document).ready(function () {
 		var output = [];
 		var result = "";
 		var inputIdx;
+		var inputs
 		for (inputIdx = 1; inputIdx <= 3; ++inputIdx) {
 			// TODO: result is messy if the text boxes does not have equal number of rows
-			debugger;
-			var input = $("#input" + inputIdx).val();
+			var input = $("#input" + inputIdx).val().trim();
+			if(!input) {
+				continue;
+			}
 			var arr = _(input.split("\n"))
 				.map(function (e) { return e.trim() });
 			var i;
@@ -43,7 +54,8 @@ $(document).ready(function () {
 				if (!output[i]) {
 					output[i] = template;
 				}
-				output[i] = output[i].replace("$" + inputIdx, arr[i]);
+				var re = RegExp('\\$' + inputIdx, 'g');
+				output[i] = output[i].replace(re, arr[i]);
 			}
 		}
 		//TODO
@@ -56,16 +68,9 @@ $(document).ready(function () {
 		//    All lower
 		// alternative repalce: #1, &1, *1, !1, `1, ...
 		// split text box content to the other boxes
-		// regex test
-		// base64 encode/decode
-		// ASCII code
-		// URL encode/decode
-		// MySQL <-> Java type mapping
-		// MSSQL <-> C# type mapping
+		// ASCII code <-> char
 		// Auto sequence: 0, 1, 2, 3, 4, .... $~
-		// Option to trim string or not
-		// Pretty JSON? or even show it in tree?
-		// save/retrieve templates (what is the backend?)
+		// Pretty Proto (Java: Message.toString format)
 		result = output.join('');
 		showResult(result);
 	});
@@ -83,5 +88,22 @@ $(document).ready(function () {
 		catch(err) {
 			alert(err.message);
 		}
+	});
+	$('#btnUrlEncode').click(function () {
+		var template = $("#template").val();
+		var result = encodeURI(template);
+		showResult(result);
+	});
+	
+	$('#btnUrlDecode').click(function () {
+		var template = $("#template").val();
+		var result = decodeURI(template);
+		showResult(result);
+	});
+	
+	$('#btnHtmlEncode').click(function () {
+		var template = $("#template").val();
+		var result = _.escape(template);
+		showResult(result);
 	});
 });
