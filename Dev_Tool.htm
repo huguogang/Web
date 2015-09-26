@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
@@ -46,7 +46,21 @@
 				<button type="button" class="btn btn-primary btn-xs" id="btnUrlEncode">URL Encode</button>
 				<button type="button" class="btn btn-primary btn-xs" id="btnUrlDecode">URL Decode</button>
 				<button type="button" class="btn btn-primary btn-xs" id="btnHtmlEncode">HTML Encode</button>
-			</div>
+				<button type="button" class="btn btn-primary btn-xs" id="btnMap" data-html="true" 
+					title="Map each row. Click question mark for more information." 
+					data-toggle="tooltip">
+					Map
+				</button>
+				<a tabindex="0" class="btn btn-xs" role="button" data-toggle="popover"
+				title="Help for Map Button"  data-html="true" data-placement="top"
+				data-content="Process each row, and fill results back.<p>Example:
+				<pre>return _.map($1.split(','), function(s) {return s.trim();});</pre>
+				will split and trim text in first text box, and fill them into multiple boxes.
+				<pre>return $1 + ',' + $2 + ',' + $3</pre> will join all three text boxes into box 1.
+				<p><span class='label label-default'>Click the question mark again to dismiss</span>">
+				<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+				</a>
+		</div>
 			<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
 			-->
 			<div class="row">
