@@ -106,4 +106,44 @@ $(document).ready(function () {
 		var result = _.escape(template);
 		showResult(result);
 	});
+	$('#btnMap').click(function() {
+		// map all three input using the code, then fill them back to the three input text
+		var template = $("#template").val();
+		var mapper = new Function("$1", "$2", "$3", template);
+		
+		var arr1 = $("#input1").val().split("\n");
+		var arr2 = $("#input2").val().split("\n");
+		var arr3 = $("#input3").val().split("\n");
+		
+		var maxLen = _.max([arr1.length, arr2.length, arr3.length]);
+		var i;
+		var ret;
+		var out$1 = "", out$2 = "", out$3 = "";
+		for(i = 0; i < maxLen; i++) {
+			if(i > 0) {
+				out$1 += "\n";
+				out$2 += "\n";
+				out$3 += "\n";
+			}
+			
+			ret = mapper(arr1[i] || "", arr2[i] || "", arr3[i] || "");
+			
+			if(_.isArray(ret)) {
+				out$1 += ret[0] || "";
+				out$2 += ret[1] || "";
+				out$3 += ret[2] || "";
+			}
+			else {
+				out$1 += ret;
+			}
+		}
+		
+		$("#input1").val(out$1);
+		$("#input2").val(out$2);
+		$("#input3").val(out$3);
+		
+	});
+	//opt-in tooltip, popover
+	$('[data-toggle="tooltip"]').tooltip();
+	$('[data-toggle="popover"]').popover();
 });
