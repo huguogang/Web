@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
-		<link href="lib/bootstrap-3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
-		<title>Developer Tool</title>
-	</head>
-	<body>
-		<div class="page-header">
-			<h1>Developer Tools
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="lib/bootstrap-3.3.5/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="lib/bootstrap-3.3.5/css/bootstrap-theme.min.css" rel="stylesheet">
+  <title>Developer Tool</title>
+</head>
+
+<body>
+  <div class="page-header">
+    <h1>Developer Tools
 				<small>Text manipulation for coders</small>
 				<div class="pull-right btn-group">
 					<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,123 +33,153 @@
 					</ul>
 				</div>
 			</h1>
-		</div>
-		<div class="container-fluid">
-			
-			<div class="panel panel-default">
-				<div class="panel-heading">Template</div>
-				<div class="panel-body">
-					<textarea id="template" class="form-control" rows="5"></textarea>
-				</div>
-				<button type="button" class="btn btn-primary btn-xs" id="btnGenCode" title="Expand template for each input line below.">
-					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp; Generate code</button>
-				<button type="button" class="btn btn-primary btn-xs" id="btnToB64">Base 64 Encode</button>
-				<button type="button" class="btn btn-primary btn-xs" id="btnFromB64">Base 64 Decode</button>
-				<button type="button" class="btn btn-primary btn-xs" id="btnUrlEncode">URL Encode</button>
-				<button type="button" class="btn btn-primary btn-xs" id="btnUrlDecode">URL Decode</button>
-				<button type="button" class="btn btn-primary btn-xs" id="btnHtmlEncode">HTML Encode</button>
-				<button type="button" class="btn btn-primary btn-xs" id="btnMap" data-html="true" 
-					title="Map each row. Click question mark for more information." 
-					data-toggle="tooltip">
-					Map
-				</button>
-				<a tabindex="0" class="btn btn-xs" role="button" data-toggle="popover"
-				title="Help for Map Button"  data-html="true" data-placement="top"
-				data-content="Process each row, and fill results back.<p>Example:
+  </div>
+  <div class="container-fluid">
+
+    <div class="panel panel-default">
+      <div class="panel-heading">Template</div>
+      <div class="panel-body">
+        <textarea id="template" class="form-control" rows="5"></textarea>
+      </div>
+      <button type="button" class="btn btn-primary btn-xs" id="btnGenCode" title="Expand template for each input line below.">
+        <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp; Generate code</button>
+      <button type="button" class="btn btn-primary btn-xs" id="btnToB64">Base 64 Encode</button>
+      <button type="button" class="btn btn-primary btn-xs" id="btnFromB64">Base 64 Decode</button>
+      <button type="button" class="btn btn-primary btn-xs" id="btnUrlEncode">URL Encode</button>
+      <button type="button" class="btn btn-primary btn-xs" id="btnUrlDecode">URL Decode</button>
+      <button type="button" class="btn btn-primary btn-xs" id="btnHtmlEncode">HTML Encode</button>
+      <button type="button" class="btn btn-primary btn-xs" id="btnMap" data-html="true" title="Map each row. Click question mark for more information."
+      data-toggle="tooltip">
+        Map
+      </button>
+      <a tabindex="0" class="btn btn-xs" role="button" data-toggle="popover" title="Help for Map Button" data-html="true" data-placement="top"
+      data-content="Process each row, and fill results back.<p>Example:
 				<pre>return _.map($1.split(','), function(s) {return s.trim();});</pre>
 				will split and trim text in first text box, and fill them into multiple boxes.
 				<pre>return $1 + ',' + $2 + ',' + $3</pre> will join all three text boxes into box 1.
 				<p><span class='label label-default'>Click the question mark again to dismiss</span>">
-				<span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
-				</a>
-		</div>
-			<!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+      </a>
+      <button type="button" class="btn btn-primary btn-xs" id="btnMapProto" data-html="true" title="Map all proto messages in box1."
+      data-toggle="tooltip">
+        Map Proto
+      </button>
+       <a tabindex="0" class="btn btn-xs" role="button" data-toggle="popover" title="Help for Map Proto Button" data-html="true" data-placement="right"
+      data-content="Parse $1 as Proto Buffer Text Format. Fill mapper results to $2 and $3. Top level message
+        is skipped.
+        <p>Example:
+				<pre>return [$1.name, $1.age];</pre> will send name and age in the following proto messages 
+        into $2 and $3.
+<pre>persons {
+  name: &quot;huguogang&quot;
+  age: 100
+  books: &quot;book1&quot;
+  books: &quot;book2&quot;
+}
+persons {
+  name: &quot;another guy&quot;
+  age: 101
+  nested {
+    layer3: 3
+  } 
+  empty: &quot;&quot;
+}</pre>
+				<p><span class='label label-default'>Click the question mark again to dismiss</span>">
+        <span class="glyphicon glyphicon-question-sign" aria-hidden="true"></span>
+      </a>
+    </div>
+    <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Generate code</button>
 			-->
-			<div class="row">
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">
-							<!-- Single button -->
-							<div class="btn-group">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions
-									<span class="caret"></span>
-								</button>
-								<ul class="dropdown-menu">
-									<li>
-										<a href="#">to camelCase</a>
-									</li>
-									<li>
-										<a href="#">to CamelCase</a>
-									</li>
-									<li>
-										<a href="#">to lower_underscore</a>
-									</li>
-									<li>
-										<a href="#">to Upper</a>
-									</li>
-									<li>
-										<a href="#">to Lower</a>
-									</li>
-									<li role="separator" class="divider"></li>
-									<li>
-										<a href="#">MySQL -> Java</a>
-									</li>
-									<li>
-										<a href="#">Proto -> Java</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-						<div class="panel-body">
-							<textarea id="input1" class="form-control" rows="10"></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">Data 2</div>
-						<div class="panel-body">
-							<textarea id="input2" class="form-control" rows="10"></textarea>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="panel panel-default">
-						<div class="panel-heading">Data 3</div>
-						<div class="panel-body">
-							<textarea id="input3" class="form-control" rows="10"></textarea>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- Modal: code after apply input to the template -->
-		<div class="modal fade" id="codeGenResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Generated Code</h4>
-					</div>
-					<div class="modal-body">
-						<textarea id="templateOutput" class="form-control" rows="25"></textarea>
-						<button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me." class="hidden">Copy to Clipboard</button>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- libraries -->
-		<script src="lib/jquery-2.1.1.min.js"></script>
-		<script src="lib/jquery.hotkeys.js"></script>
-		<script src="lib/jquery.touchSwipe.min.js"></script>
-		<script src="lib/underscore-min.js"></script>
-		<script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
-		<script src="lib/zeroclipboard-2.2.0/ZeroClipboard.min.js"></script>
-		<script type="text/javascript" src="js/DevTool.js"></script>
-		<!-- my content -->
-	</body>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <!-- Single button -->
+            <div class="btn-group">
+              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Actions
+                <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="#">to camelCase</a>
+                </li>
+                <li>
+                  <a href="#">to CamelCase</a>
+                </li>
+                <li>
+                  <a href="#">to lower_underscore</a>
+                </li>
+                <li>
+                  <a href="#">to Upper</a>
+                </li>
+                <li>
+                  <a href="#">to Lower</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a href="#">MySQL -> Java</a>
+                </li>
+                <li>
+                  <a href="#">Proto -> Java</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="panel-body">
+            <textarea id="input1" class="form-control" rows="10"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Data 2</div>
+          <div class="panel-body">
+            <textarea id="input2" class="form-control" rows="10"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="panel panel-default">
+          <div class="panel-heading">Data 3</div>
+          <div class="panel-body">
+            <textarea id="input3" class="form-control" rows="10"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal: code after apply input to the template -->
+  <div class="modal fade" id="codeGenResultModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Generated Code</h4>
+        </div>
+        <div class="modal-body">
+          <textarea id="templateOutput" class="form-control" rows="25"></textarea>
+          <button id="copy-button" data-clipboard-text="Copy Me!" title="Click to copy me." class="hidden">Copy to Clipboard</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- libraries -->
+  <!--
+  <script src="lib/require.js"></script>
+	-->
+  <script src="lib/jquery-2.1.1.min.js"></script>
+  <script src="lib/jquery.hotkeys.js"></script>
+  <script src="lib/jquery.touchSwipe.min.js"></script>
+  <script src="lib/underscore-min.js"></script>
+  <script src="lib/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+  <script src="lib/zeroclipboard-2.2.0/ZeroClipboard.min.js"></script>
+  <script src="lib/ByteBufferAB.js"></script>
+  <script src="js/proto.js"></script>
+  <script type="text/javascript" src="js/DevTool.js"></script>
+  <!-- my content -->
+</body>
