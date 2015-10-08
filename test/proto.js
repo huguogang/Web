@@ -1,3 +1,6 @@
+/// <reference path="../typings/qunit/qunit.d.ts"/>
+/// <reference path="../js/proto.js"/>
+
 QUnit.config.reorder = false;
 
 QUnit
