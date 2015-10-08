@@ -7,6 +7,7 @@ QUnit
                         age: 100 \
                         books: "book1" \
                         books: "book2" \
+                        books: "book3" \
                 } \
                 persons { \
                         name: "another guy" \
@@ -15,12 +16,16 @@ QUnit
                           layer3: 3 \
                         } \
                         empty: "" \
+                } \
+                persons { \
+                        name: "third guy" \
+                        age: 1 \
                 }',
     expected: {persons: [
       {
         "name": "huguogang",
         "age": 100,
-        "books": ["book1", "book2"]
+        "books": ["book1", "book2", "book3"]
       },
       {
         "name": "another guy",
@@ -29,6 +34,10 @@ QUnit
           "layer3": 3
         },
         "empty": ""
+      },
+      {
+        "name": "third guy",
+        "age": 1
       }
     ]}
   }])
