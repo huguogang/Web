@@ -1,3 +1,6 @@
+/// <reference path="../typings/qunit/qunit.d.ts"/>
+/// <reference path="../js/euler.js"/>
+
 //candidates
 // - problem 122    efficient exponentiation
 // - problem 161    triomenoes

@@ -1,4 +1,4 @@
-// dependencies: underscore
+/// <reference path="../typings/underscore/underscore.d.ts"/>
 
 // A rudimentary parser of Google Protocol Buffer Text Format
 // Convert protoText to a JSON object.

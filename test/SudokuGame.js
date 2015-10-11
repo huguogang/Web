@@ -1,3 +1,6 @@
+/// <reference path="../typings/qunit/qunit.d.ts"/>
+/// <reference path="../js/SudokuGame.js"/>
+
 QUnit.config.reorder = false;
 /*
 QUnit
@@ -127,44 +130,44 @@ equal(ret, params.expected);
 //  Grid 50 got solution after a second cell guessing
 // still total time is 500 ms
 $.ajax({
-    url : 'p096_sudoku.txt'
-}).done(function(data) {
-    var rows = data.split('\n');
-    var boards = [];
-    var i, board, row;
-    var sum = 0;
-    
-    for ( i = 0; i < rows.length; i++) {
-        row = rows[i].trim();
-        if(row === '') {
-            break;
-        }
-        if (row.substr(0, 4) === 'Grid') {
-            board = [];
-            boards.push(board);
-            continue;
-        }
-        board.push(row);
+  url: 'p096_sudoku.txt'
+}).done(function (data) {
+  var rows = data.split('\n');
+  var boards = [];
+  var i, board, row;
+  var sum = 0;
+
+  for (i = 0; i < rows.length; i++) {
+    row = rows[i].trim();
+    if (row === '') {
+      break;
     }
-    boards = _.map(boards, function(board) {
-        return {
-            board : board.join('|'),
-            expected : true
-        };
-    });
-    QUnit.cases(boards).test("euler problem 096 test", function(params) {
-        var s = sudoku();
-        s.setBoard(params.board);
-        //console.log('before solve');
-        //s.printBoard();
-        var ret = s.solve();
-        //console.log(ret);
-        //s.printBoard();
-        //console.log(s.getBoard());
-        equal(ret, params.expected);
-        var row = s.getBoard()[0];
-        sum += row[0] * 100 + row[1] * 10 + row[2];
-        s.printBoard();
-        console.log(sum);
-    });
+    if (row.substr(0, 4) === 'Grid') {
+      board = [];
+      boards.push(board);
+      continue;
+    }
+    board.push(row);
+  }
+  boards = _.map(boards, function (board) {
+    return {
+      board: board.join('|'),
+      expected: true
+    };
+  });
+  QUnit.cases(boards).test("euler problem 096 test", function (params) {
+    var s = sudoku();
+    s.setBoard(params.board);
+    //console.log('before solve');
+    //s.printBoard();
+    var ret = s.solve();
+    //console.log(ret);
+    //s.printBoard();
+    //console.log(s.getBoard());
+    equal(ret, params.expected);
+    var row = s.getBoard()[0];
+    sum += row[0] * 100 + row[1] * 10 + row[2];
+    s.printBoard();
+    console.log(sum);
+  });
 }); 
