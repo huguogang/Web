@@ -7,5 +7,9 @@ var TypingData = {
     {
       "test": "villa",
       "answers": ["town", "farm", "village"]
+    },
+    {
+      "test": "山",
+      "answers": ["mountain", "hill"]
     }]
 };
