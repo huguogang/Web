@@ -1,3 +1,9 @@
+// TODO:
+//  1. _.shuffle
+//  2. show progress: percent completed
+//  3. add catalog of drills (e.g. English Week 1 vocabulary)
+//  4. add default drill concept
+/// 5. visualize result: percent correct vs percent wrong
 $(document).ready(function () {
   // Wrong guess over the threshold is considered wrong, and we will
   // move on to the next test word.
