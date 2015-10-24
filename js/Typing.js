@@ -11,6 +11,7 @@
 // All selected tests will be blended
 // Show number of test words as badge for each test catalog
 $(document).ready(function () {
+  var console = console || window.console || {log: function() {}};
   // Wrong guess over the threshold is considered wrong, and we will
   // move on to the next test word.
   var MISS_THRESHOLD = 3;
