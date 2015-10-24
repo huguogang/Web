@@ -1,20 +1,37 @@
+// TODO:
+//  3. add catalog of drills (e.g. English Week 1 vocabulary)
+//  4. add default drill concept
+/// 5. visualize result: percent correct vs percent wrong
+// Tree view (select parent will cascade all children)
+//    * Latin
+//    * Chinese
+//    * Spanish
+//       * 1st grade
+//          * week 1
+// All selected tests will be blended
+// Show number of test words as badge for each test catalog
 $(document).ready(function () {
   // Wrong guess over the threshold is considered wrong, and we will
   // move on to the next test word.
   var MISS_THRESHOLD = 3;
 
-  var currentAnswer;
+  var currentTestSet;
+  // Index of the current test in currentTestSet
+  var currentTestSetIndex = 0;
   // struct: "latin", "answer"
   var currentTest;
-  var currentDictionalIndex = 0;
-  // Total miss o
+
+  var currentAnswer;
+  
+  // Total misses for the current test, up to MISS_THRESHOLD
+  // retries are allowed until the test is declared a mistake
   var currentMiss = 0;
 
   var totalCorrect = 0;
   var totalWrong = 0;
   var totalGuesses = 0;
 
-  var testData = TypingData.Latin2Eng;
+  var state = "";
 
   var setCurrentAnswer = function (word) {
     currentAnswer = word;
@@ -27,6 +44,8 @@ $(document).ready(function () {
   };
 
   var ready = function () {
+    $("#alert").hide();
+
     $("#currentTest").addClass("label-danger");
     setCurrentTest({ "test": "Ready ..." });
     setTimeout(set, 1000);
@@ -48,7 +67,10 @@ $(document).ready(function () {
 
   var startTest = function () {
     $("#currentTest").removeClass("label-success");
-    $("#currentTest").addClass("label-primary");
+    $("#currentTest").addClass("label-info");
+
+    currentTestSet = _.shuffle(TypingData.Latin2Eng);
+    currentTestSetIndex = 0;
 
     nextTest();
   };
@@ -56,12 +78,25 @@ $(document).ready(function () {
   var nextTest = function () {
     setCurrentAnswer("");
     currentMiss = 0;
-    
-    // TODO: random pick test
-    currentDictionalIndex++;
-    currentDictionalIndex = currentDictionalIndex % testData.length;
 
-    setCurrentTest(testData[currentDictionalIndex]);
+    if (currentTestSetIndex >= currentTestSet.length) {
+      finish();
+    }
+    else {
+      setCurrentTest(currentTestSet[currentTestSetIndex]);
+      currentTestSetIndex++;
+    }
+  };
+
+  var hint = function (answer) {
+    $("#currentAnswer").text(answer).addClass("label-danger");
+    state = "hint";
+  };
+
+  var exitHint = function () {
+    $("#currentAnswer").text("").removeClass("label-danger");
+    state = "";
+    nextTest();
   };
 
   var processAnswer = function () {
@@ -72,13 +107,17 @@ $(document).ready(function () {
         // Got it right
         totalCorrect++;
 
+        updateProgress();
         nextTest();
       }
       else {
         if (currentMiss >= MISS_THRESHOLD - 1) {
           // Too many wrong guesses
           totalWrong++;
-          nextTest();
+
+          updateProgress();
+          // nextTest();
+          hint(currentTest.answers[0]);
         }
         else {
           currentMiss++;
@@ -88,12 +127,23 @@ $(document).ready(function () {
     }
     else {
       // get a free pass, if there is no answer yet
-      $("#currentAnswer").text("Start typing your answer");
+      $("#currentAnswer").text("Start typing your answer followed by ENTER");
+    }
+  };
+
+  var updateProgress = function () {
+    var total = currentTestSet.length;
+    var percentCorrect = Math.ceil((totalCorrect / total) * 100);
+    var percentWrong = Math.ceil((totalWrong / total) * 100);
+    
+    // Math.ceil may cause them adds up more than 100%, the rendering will
+    // have some problem
+    if (percentCorrect + percentWrong > 100) {
+      percentWrong = 100 - percentCorrect;
     }
 
-    $("#correctBadge").text(totalCorrect);
-    $("#wrongBadge").text(totalWrong);
-    $("#totalBadge").text(totalGuesses);
+    $("#correctBar").width("" + percentCorrect + "%");
+    $("#wrongBar").width("" + percentWrong + "%");
   };
   
   // Main entry point
@@ -102,9 +152,23 @@ $(document).ready(function () {
     ready();
   };
 
+  var finish = function () {
+    state = "finished";
+
+    var percentCorrect = Math.ceil((totalCorrect / currentTestSet.length) * 100);
+    if (percentCorrect > 70) {
+      $("#resultMessage").text("Good job. You got " + percentCorrect + "% correct!");
+      $("#alert").addClass("alert-success").show();
+    }
+    else {
+      $("#resultMessage").text("You got " + percentCorrect + "% correct!");
+      $("#alert").addClass("alert-danger").show();
+    }
+  };
+
   $(document).keydown(function (event) {
     console.log(event.which);
-    if (event.which === 8) {
+    if (event.which === 8) { //backspace
       if (currentAnswer.length > 0) {
         setCurrentAnswer(currentAnswer.substring(0, currentAnswer.length - 1));
       }
@@ -114,13 +178,21 @@ $(document).ready(function () {
   });
 
   $(document).keypress(function (event) {
-    var spaceMatcher = /\s/;
     var asciiMatcher = /[a-zA-Z]/;
     var char = String.fromCharCode(event.which);
-    if (spaceMatcher.test(char)) {
+
+    if (state == "finished") {
+      return;
+    }
+    else if (state == "hint") {
+      exitHint();
+      return;
+    }
+
+    if (char == "\r") {
       processAnswer();
     }
-    else if (asciiMatcher.test(char)) {
+    else if (asciiMatcher.test(char) || char == " ") {
       setCurrentAnswer(currentAnswer + char);
     }
     else {
