@@ -11,7 +11,9 @@
 
 <body>
   <div class="container">
-    <div class="jumbotron">
+    <div class="alert" role="alert" id="alert">
+      <h2 id="resultMessage">alert</h2></div>
+    <div>
       <h1 id="currentTest" class="label-warning">Ready</h1>
     </div>
     <div class="panel panel-primary">
@@ -24,6 +26,7 @@
         </div>
       </div>
     </div>
+    <!--
     <ul class="nav nav-pills">
       <li>
         <button class="btn btn-success" type="button">
@@ -36,13 +39,23 @@
           Wrong <span class="badge" id="wrongBadge">0</span>
         </button>
       </li>
-       <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
+      <li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</li>
       <li>
         <button class="btn btn-info" type="button">
           Total Guesses <span class="badge" id="totalBadge">0</span>
         </button>
       </li>
     </ul>
+    -->
+    <h2>Progress</h2>
+    <div class="progress">
+      <div class="progress-bar progress-bar-success" style="width: 0" id="correctBar">
+        <span class="sr-only">Correct</span>
+      </div>
+      <div class="progress-bar progress-bar-danger" style="width: 0" id="wrongBar">
+        <span class="sr-only">Wrong</span>
+      </div>
+    </div>
   </div>
   <!-- libraries -->
   <script type="text/javascript" src="lib/jquery-2.1.1.min.js"></script>
