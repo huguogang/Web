@@ -4,9 +4,9 @@
 
 // We are not scared of big red error messages!
 window.onerror = function (errorMsg, url, lineNumber, column, errorObj) {
-  alert('Error: ' + errorMsg + ' \nScript: ' + url + ' \nLine: ' + lineNumber
-    + ' \nColumn: ' + column + ' \nStackTrace: ' + errorObj);
-}
+  alert('Error: ' + errorMsg + ' \nScript: ' + url + ' \nLine: ' + lineNumber +
+    ' \nColumn: ' + column + ' \nStackTrace: ' + errorObj);
+};
 
 $(document).ready(function () {
   var cpButton = new ZeroClipboard(document.getElementById("copy-button"));
@@ -40,7 +40,7 @@ $(document).ready(function () {
     var output = [];
     var result = "";
     var inputIdx;
-    var inputs
+
     for (inputIdx = 1; inputIdx <= 3; ++inputIdx) {
       // TODO: result is messy if the text boxes does not have equal number of rows
       var input = $("#input" + inputIdx).val().trim();
@@ -48,7 +48,7 @@ $(document).ready(function () {
         continue;
       }
       var arr = _(input.split("\n"))
-        .map(function (e) { return e.trim() });
+        .map(function (e) { return e.trim(); });
       var i;
       for (i = 0; i < arr.length; ++i) {
         if (!output[i]) {
@@ -146,6 +146,7 @@ $(document).ready(function () {
   $('#btnMapProto').click(function () {
     // map all proto messages in $1, then fill them back to the two input text
     // sample input:
+    /*
     'persons { \
                         name: "huguogang" \
                         age: 100 \
@@ -159,28 +160,29 @@ $(document).ready(function () {
                           layer3: 3 \
                         } \
                         empty: "" \
-                }'
+    }'
+    */
     // sample tempalte: return [$1.name, $1.age];
     var template = $("#template").val();
     var mapper = new Function("$1", template);
 
     var protoText = $("#input1").val();
     var protoMessages = parseProto(protoText);
-    
-    if(_.keys(protoMessages).length == 0) {
+
+    if (_.keys(protoMessages).length === 0) {
       return; // no proto data in $1
     }
-    
-    if(_.keys(protoMessages).length > 1) {
+
+    if (_.keys(protoMessages).length > 1) {
       alert("There are more than one top level message types. The mapper is designed to map a single type of top level message only.");
     }
     
     // assume there will only be one top level key
     protoMessages = protoMessages[_.keys(protoMessages)[0]];
-    if(!_.isArray(protoMessages)) {
+    if (!_.isArray(protoMessages)) {
       protoMessages = [protoMessages];
     }
-    
+
     var i;
     var ret;
     var out$2 = "", out$3 = "";
