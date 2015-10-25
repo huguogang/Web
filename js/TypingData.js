@@ -52,7 +52,7 @@ var TypingData = {
     { "test": "bibit", "answers": ["drinks"] },
     { "test": "circumspectat", "answers": ["looks around"] },
     { "test": "clamat", "answers": ["shouts"] },
-    { "test": "ecce", "answers": ["see look"] },
+    { "test": "ecce", "answers": ["see", "look"] },
     { "test": "et", "answers": ["and"] },
     { "test": "exit", "answers": ["exit", "goes out"] },
     { "test": "exspectat", "answers": ["waits for"] },
