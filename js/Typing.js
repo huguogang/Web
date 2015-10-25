@@ -11,7 +11,11 @@
 // All selected tests will be blended
 // Show number of test words as badge for each test catalog
 $(document).ready(function () {
-  var console = console || window.console || {log: function() {}};
+  var TEST_BLEND = ["Latin/Stagin 1", "Chinese2Eng"];
+  var MAX_TEST_SIZE = 20;
+  
+  var console = console || window.console || { log: function () { } };
+  
   // Wrong guess over the threshold is considered wrong, and we will
   // move on to the next test word.
   var MISS_THRESHOLD = 3;
@@ -19,7 +23,7 @@ $(document).ready(function () {
   var currentTestSet;
   // Index of the current test in currentTestSet
   var currentTestSetIndex = 0;
-  // struct: "latin", "answer"
+  // struct: "test", "answer"
   var currentTest;
 
   var currentAnswer;
@@ -70,10 +74,29 @@ $(document).ready(function () {
     $("#currentTest").removeClass("label-success");
     $("#currentTest").addClass("label-info");
 
-    currentTestSet = _.shuffle(TypingData.Latin2Eng);
+    makeTestBlend();
+
     currentTestSetIndex = 0;
 
     nextTest();
+  };
+
+  var makeTestBlend = function () {
+    var tests = [];
+    _.each(TEST_BLEND, function (testName) {
+      tests = tests.concat(TypingData[testName]);
+    });
+
+    currentTestSet = _.chain(TEST_BLEND)
+      .map(function (testName) {
+        return TypingData[testName];
+      })
+      .flatten()
+      .shuffle()
+      .first(MAX_TEST_SIZE)
+      .value();
+
+    console.log(currentTestSet);
   };
 
   var nextTest = function () {
