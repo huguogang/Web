@@ -100,6 +100,42 @@ var TypingData = {
     { "test": "vendit", "answers": ["sells"] },
     { "test": "vocat", "answers": ["calls"] }
   ],
+  "Latin/Unit1/Stage5": [
+    { "test": "adest", "answers": ["is here"] },
+    { "test": "adsunt", "answers": ["are"] },
+    { "test": "audit", "answers": ["hears", "listens to"] },
+    { "test": "clamor", "answers": ["shout", "uproar"] },
+    { "test": "contendit", "answers": ["hurries"] },
+    { "test": "currit", "answers": ["runs"] },
+    { "test": "euge!", "answers": ["hurrah"] },
+    { "test": "fabula", "answers": ["play", "show", "story"] },
+    { "test": "fabulam agit", "answers": ["acts in a play"] },
+    { "test": "femina", "answers": ["woman"] },
+    { "test": "hodie", "answers": ["taday"] },
+    { "test": "iuvenis", "answers": ["young man"] },
+    { "test": "meus", "answers": ["my", "mine"] },
+    { "test": "multus", "answers": ["much"] },
+    { "test": "multi", "answers": ["many"] },
+    { "test": "optimus", "answers": ["very good", "excellent", "best"] },
+    { "test": "petit", "answers": ["heads for", "attacks", "seeks", "looks for", "searches for"] },
+    { "test": "plaudit", "answers": ["applauds", "claps"] },
+    { "test": "puella", "answers": ["girl"] },
+    { "test": "senex", "answers": ["old man"] },
+    { "test": "spectat", "answers": ["looks at", "watches"] },
+    { "test": "stat", "answers": ["stands"] },
+    { "test": "turba", "answers": ["crowd"] },
+    { "test": "ubi", "answers": ["where"] },
+    { "test": "urbs", "answers": ["city"] },
+    { "test": "venit", "answers": ["comes"] }
+  ],
+  "Latin/Conjugation": [
+    { "test": "how do you translate verb-o", "answers": ["I verb"] },
+    { "test": "how do you translate verb-s", "answers": ["you verb"] },
+    { "test": "how do you translate verb-t", "answers": ["he verb", "she verb", "it verb"] },
+    { "test": "how do you translate verb-mus", "answers": ["we verb"] },
+    { "test": "how do you translate verb-tis", "answers": ["you all verb", "ya'll verb"] },
+    { "test": "how do you translate verb-nt", "answers": ["they verb", "they all verb"] }
+  ],
   Latin2Eng: [
     {
       "test": "canis",
