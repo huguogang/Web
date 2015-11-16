@@ -102,7 +102,7 @@ var TypingData = {
   ],
   "Latin/Unit1/Stage5": [
     { "test": "adest", "answers": ["is here"] },
-    { "test": "adsunt", "answers": ["are"] },
+    { "test": "adsunt", "answers": ["are here"] },
     { "test": "audit", "answers": ["hears", "listens to"] },
     { "test": "clamor", "answers": ["shout", "uproar"] },
     { "test": "contendit", "answers": ["hurries"] },
@@ -111,7 +111,7 @@ var TypingData = {
     { "test": "fabula", "answers": ["play", "show", "story"] },
     { "test": "fabulam agit", "answers": ["acts in a play"] },
     { "test": "femina", "answers": ["woman"] },
-    { "test": "hodie", "answers": ["taday"] },
+    { "test": "hodie", "answers": ["today"] },
     { "test": "iuvenis", "answers": ["young man"] },
     { "test": "meus", "answers": ["my", "mine"] },
     { "test": "multus", "answers": ["much"] },
