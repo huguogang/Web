@@ -14,7 +14,7 @@ $(document).ready(function () {
   var TEST_BLEND = [// "Latin/Unit1/Stage1",
     "Latin/Unit1/Stage2",
     // "Latin/Unit1/Stage3",
-    // "L tin/Unit1/Stage4",
+    // "Latin/Unit1/Stage4",
     // "Latin/Unit1/Stage5",
     "Latin/Unit1/Stage6",
     "Latin/Conjugation"];
