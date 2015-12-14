@@ -16,6 +16,7 @@ $(document).ready(function () {
     "Latin/Unit1/Stage3",
     "Latin/Unit1/Stage4",
     "Latin/Unit1/Stage5",
+    "Latin/Unit1/Stage6",
     "Latin/Conjugation"];
   var MAX_TEST_SIZE = 35;
 
