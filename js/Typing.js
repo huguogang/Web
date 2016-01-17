@@ -12,12 +12,14 @@
 // Show number of test words as badge for each test catalog
 $(document).ready(function () {
   var TEST_BLEND = [// "Latin/Unit1/Stage1",
-    // "Latin/Unit1/Stage2",
-    // "Latin/Unit1/Stage3",
-    // "Latin/Unit1/Stage4",
-    // "Latin/Unit1/Stage5",
-    "Latin/Unit1/Stage6",
-    "Latin/Conjugation"];
+  // "Latin/Unit1/Stage2",
+  // "Latin/Unit1/Stage3",
+  // "Latin/Unit1/Stage4",
+  // "Latin/Unit1/Stage5",
+  // "Latin/Unit1/Stage6",
+  // "Latin/Conjugation"
+    "Latin/Unit1/Stage7",
+    "Latin/Unit1/Stage8"];
   var MAX_TEST_SIZE = 50;
 
   var console = console || window.console || { log: function () { } };
