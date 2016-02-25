@@ -18,10 +18,13 @@ $(document).ready(function () {
   // "Latin/Unit1/Stage5",
   // "Latin/Unit1/Stage6",
   // "Latin/Conjugation"
-    "Latin/Unit1/Stage7",
-    "Latin/Unit1/Stage8"];
+  //  "Latin/Unit1/Stage7",
+  //  "Latin/Unit1/Stage8"];
+    "Multiplication"];
   var MAX_TEST_SIZE = 50;
 
+  var KEY_MATCHER = /[0-9]/; ///[a-zA-Z]/ | /[0-9]/
+    
   var console = console || window.console || { log: function () { } };
   
   // Wrong guess over the threshold is considered wrong, and we will
@@ -210,7 +213,6 @@ $(document).ready(function () {
   });
 
   $(document).keypress(function (event) {
-    var asciiMatcher = /[a-zA-Z]/;
     var char = String.fromCharCode(event.which);
 
     if (state == "finished") {
@@ -224,7 +226,7 @@ $(document).ready(function () {
     if (char == "\r") {
       processAnswer();
     }
-    else if (asciiMatcher.test(char) || char == " ") {
+    else if (KEY_MATCHER.test(char) || char == " ") {
       setCurrentAnswer(currentAnswer + char);
     }
     else {
