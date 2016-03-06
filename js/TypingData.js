@@ -346,5 +346,17 @@ var TypingData = {
     { "test": "11 X 11", "answers": ["121"] },
     { "test": "11 X 12", "answers": ["132"] },
     { "test": "12 X 12", "answers": ["144"] }
+  ],
+  trig: [
+    { "test": "$$sin^{-1}(0)$$", "answers": ["0"] },
+    { "test": "$$sin^{-1}({1 \\over 2})$$", "answers": ["30"] },
+    { "test": "$$sin^{-1}({1 \\over \\sqrt 2})$$", "answers": ["45"] },
+    { "test": "$$sin^{-1}({\\sqrt 3 \\over 2})$$", "answers": ["60"] },
+    { "test": "$$sin^{-1}(1)$$", "answers": ["90"] },
+    { "test": "$$cos^{-1}(0)$$", "answers": ["90"] },
+    { "test": "$$cos^{-1}({1 \\over 2})$$", "answers": ["60"] },
+    { "test": "$$cos^{-1}({1 \\over \\sqrt 2})$$", "answers": ["45"] },
+    { "test": "$$cos^{-1}({\\sqrt 3 \\over 2})$$", "answers": ["30"] },
+    { "test": "$$cos^{-1}(1)$$", "answers": ["0"] }
   ]
 };

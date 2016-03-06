@@ -20,7 +20,9 @@ $(document).ready(function () {
   // "Latin/Conjugation"
   //  "Latin/Unit1/Stage7",
   //  "Latin/Unit1/Stage8"];
-    "Multiplication"];
+  //  "Multiplication"];
+    "trig"];
+  var NEED_MATHJAX = true;
   var MAX_TEST_SIZE = 50;
 
   var KEY_MATCHER = /[0-9]/; ///[a-zA-Z]/ | /[0-9]/
@@ -57,6 +59,9 @@ $(document).ready(function () {
   var setCurrentTest = function (test) {
     currentTest = test;
     $("#currentTest").text(test.test);
+    if(NEED_MATHJAX) {
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
   };
 
   var ready = function () {
