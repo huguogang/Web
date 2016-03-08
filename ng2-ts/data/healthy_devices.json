@@ -1,0 +1,42 @@
+[
+  {
+    "ID": "H1DXT",
+    "FirmwareVersion": "1",
+    "HardwareVersion": "beta1",
+    "LAT": 37.3175,
+    "LON": -122.0419,
+    "BatteryLevel": 85
+  }
+  {
+    "ID": "G3DXT",
+    "FirmwareVersion": "1",
+    "HardwareVersion": "alpha",
+    "LAT": 37.3175,
+    "LON": -123.0419,
+    "BatteryLevel": 61
+  }
+  {
+    "ID": "H1DFE",
+    "FirmwareVersion": "3.0",
+    "HardwareVersion": "2-W",
+    "LAT": 47.3175,
+    "LON": -122.0419,
+    "BatteryLevel": 100
+  }
+  {
+    "ID": "DEED",
+    "FirmwareVersion": "1",
+    "HardwareVersion": "prealpha",
+    "LAT": 37.3275,
+    "LON": -122.1419,
+    "BatteryLevel": 25
+  }
+  {
+    "ID": "H7UILOP",
+    "FirmwareVersion": "5.0",
+    "HardwareVersion": "12",
+    "LAT": 45.4,
+    "LON": -75.666,
+    "BatteryLevel": 100
+  }
+]

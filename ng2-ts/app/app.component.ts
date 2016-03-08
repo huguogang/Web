@@ -6,17 +6,11 @@ import {ReportComponent} from "./report.component"
 
 @Component({
   selector: 'my-app',
-  template: `
-  <h1>{{title}}</h1>
-    <nav>
-      <a [routerLink] = "['Device']">Device</a>
-      <a [routerLink] = "['Report']">Report</a>
-    </nav>
-    <router-outlet></router-outlet>`,
+  templateUrl: 'app/app.component.html',
   directives: [ROUTER_DIRECTIVES],
   providers: [
-     ROUTER_PROVIDERS
-    ]
+    ROUTER_PROVIDERS
+  ]
 })
 @RouteConfig([
   {
