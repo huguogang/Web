@@ -1,13 +1,14 @@
 import {Component, OnInit} from 'angular2/core';
+import {Observable} from 'rxjs/Observable';
 
 import {DeviceSummary, DeviceService} from './device.service';
-
-import {Observable} from 'rxjs/Observable';
+import {StatusStylePipe} from './status_style.pipe'
 
 @Component({
   selector: 'my-device',
   templateUrl: 'app/device.component.html',
-  providers: [DeviceService]
+  providers: [DeviceService],
+  pipes: [StatusStylePipe]
 })
 export class DeviceComponent implements OnInit {
   deviceSummary: DeviceSummary[];

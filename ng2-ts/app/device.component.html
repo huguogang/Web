@@ -1,6 +1,8 @@
 <h1>Device Summary V1</h1>
 <ul>
   <li *ngFor="#row of deviceSummary">
-    {{row.status}} - {{row.count}}
+    <button class="btn btn-{{row.status | statusStyle}}" type="button">
+      {{row.status}} <span class="badge">{{row.count}}</span>
+    </button>
   </li>
 </ul>
