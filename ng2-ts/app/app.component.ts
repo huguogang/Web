@@ -2,6 +2,7 @@ import {Component} from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
 import {DeviceComponent} from "./device.component"
+import {DeviceListComponent} from "./device_list.component"
 import {ReportComponent} from "./report.component"
 
 @Component({
@@ -23,6 +24,11 @@ import {ReportComponent} from "./report.component"
     path: '/report',
     name: 'Report',
     component: ReportComponent
+  },
+  {
+    path: '/device_list',
+    name: "DeviceList",
+    component: DeviceListComponent
   }
 ])
 export class AppComponent {

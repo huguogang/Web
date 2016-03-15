@@ -10,19 +10,29 @@ export interface DeviceSummary {
   count: number;
 }
 
+export interface Device {
+  ID: string;
+  FirmwareVersion: string;
+  HardwareVersion: string;
+  Lat: number;
+  Lon: number;
+  // Battery percentage [0 - 100]
+  BatteryLevel: number;
+}
+
 @Injectable()
 export class DeviceService {
   deviceSummary: DeviceSummary[];
 
   constructor(private _http: Http) {
-    console.log("_http in DeviceService", this._http);
   }
 
   getDeviceSummary(): Observable<DeviceSummary[]> {
     return this._http.get("/data/device_summary.json")
       .map(response => response.json())
   }
-  getDevice(id: string) {
-
+  getDeviceListByStatus(status: string) {
+    return this._http.get("/data/" + status.toLowerCase() + "_devices.json")
+      .map(response => response.json())
   }
 }

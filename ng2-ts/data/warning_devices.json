@@ -1,0 +1,18 @@
+[
+  {
+    "ID": "LOW",
+    "FirmwareVersion": "1",
+    "HardwareVersion": "beta1",
+    "LAT": 37.3175,
+    "LON": -122.0419,
+    "BatteryLevel": 5
+  },
+  {
+    "ID": "VERYLOW",
+    "FirmwareVersion": "pre-alpha",
+    "HardwareVersion": "alpha",
+    "LAT": 37.3175,
+    "LON": -123.0419,
+    "BatteryLevel": 1
+  }
+]

@@ -1,7 +1,7 @@
 <h1>Device Summary V1</h1>
-<ul>
-  <li *ngFor="#row of deviceSummary">
-    <button class="btn btn-{{row.status | statusStyle}}" type="button">
+<ul class="list-group">
+  <li *ngFor="#row of deviceSummary" class="list-group-item">
+    <button class="btn btn-{{row.status | statusStyle}}" type="button" (click)="onSelect(row)">
       {{row.status}} <span class="badge">{{row.count}}</span>
     </button>
   </li>

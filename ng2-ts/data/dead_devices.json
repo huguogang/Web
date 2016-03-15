@@ -1,0 +1,26 @@
+[
+  {
+    "ID": "DEAD",
+    "FirmwareVersion": "X",
+    "HardwareVersion": "beta1",
+    "LAT": 37.3175,
+    "LON": -122.0419,
+    "BatteryLevel": 0
+  },
+  {
+    "ID": "GONE",
+    "FirmwareVersion": "1",
+    "HardwareVersion": "alpha",
+    "LAT": 37.3175,
+    "LON": -123.0419,
+    "BatteryLevel": 61
+  },
+  {
+    "ID": "AWAY",
+    "FirmwareVersion": "XXX",
+    "HardwareVersion": "X",
+    "LAT": 37.3175,
+    "LON": -123.0419,
+    "BatteryLevel": 0
+  }
+]
