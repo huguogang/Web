@@ -1,8 +1,6 @@
 import {Component, OnInit} from 'angular2/core';
 import {Router} from 'angular2/router';
 
-import {Observable} from 'rxjs/Observable';
-
 import {DeviceSummary, DeviceService} from './device.service';
 import {StatusStylePipe} from './status_style.pipe'
 
@@ -29,7 +27,6 @@ export class DeviceComponent implements OnInit {
   }
   
   onSelect(deviceSummary : DeviceSummary) {
-    // alert(JSON.stringify(deviceSummary));
     this._router.navigate(["DeviceList", {status: deviceSummary.status} ]);
   }
 }

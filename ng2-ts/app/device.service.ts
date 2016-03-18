@@ -31,7 +31,7 @@ export class DeviceService {
     return this._http.get("/data/device_summary.json")
       .map(response => response.json())
   }
-  getDeviceListByStatus(status: string) {
+  getDeviceListByStatus(status: string): Observable<Device[]> {
     return this._http.get("/data/" + status.toLowerCase() + "_devices.json")
       .map(response => response.json())
   }

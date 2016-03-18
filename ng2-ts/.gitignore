@@ -2,6 +2,7 @@
 node_modules
 typings
 
+*.log
 # TS compilation output
 *.js
 *.js.map

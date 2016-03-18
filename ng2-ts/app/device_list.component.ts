@@ -5,8 +5,6 @@ import {BatteryStylePipe} from './battery_style.pipe'
 import {Device, DeviceService} from './device.service';
 import {StatusStylePipe} from './status_style.pipe'
 
-import {Observable} from 'rxjs/Observable';
-
 @Component({
   selector: 'my-device-list',
   templateUrl: 'app/device_list.component.html',

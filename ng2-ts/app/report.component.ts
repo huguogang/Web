@@ -77,10 +77,3 @@ export class ReportComponent implements OnInit {
     }
   }
 }
-/*
-TODO:
-1. point
-2. line
-3. Heat map
-4. info window
-*/
