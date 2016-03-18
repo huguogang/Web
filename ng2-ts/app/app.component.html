@@ -1,7 +1,6 @@
 <h1>{{title}}</h1>
-<nav class="nav navbar navbar-default">
-  <a [routerLink]="['Device']">Device</a>
-  &nbsp; | &nbsp;
-  <a [routerLink]="['Report']">Report</a>
+<nav class="navbar navbar-default">
+  <a class="navbar-brand" [routerLink]="['Device']">Device</a>
+  <a class="navbar-brand" [routerLink]="['Report']">Report</a>
 </nav>
 <router-outlet></router-outlet>

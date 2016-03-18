@@ -14,8 +14,8 @@ export interface Device {
   ID: string;
   FirmwareVersion: string;
   HardwareVersion: string;
-  Lat: number;
-  Lon: number;
+  LAT: number;
+  LON: number;
   // Battery percentage [0 - 100]
   BatteryLevel: number;
 }
