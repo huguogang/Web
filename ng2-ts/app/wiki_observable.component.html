@@ -1,0 +1,7 @@
+<div>
+  <h2>Wikipedia Search (using Observable)</h2>
+  <input #term type="text" [ngFormControl]="term">
+  <ul>
+    <li *ngFor="#item of items">{{item}}</li>
+    </ul>
+  </div>

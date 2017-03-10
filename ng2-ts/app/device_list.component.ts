@@ -14,6 +14,7 @@ import {StatusStylePipe} from './status_style.pipe'
 export class DeviceListComponent implements OnInit {
   devices: Device[];
   status: string;
+  
   constructor(private _deviceService: DeviceService,
     private _routeParams: RouteParams) {
   }

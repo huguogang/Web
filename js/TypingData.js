@@ -345,7 +345,10 @@ var TypingData = {
     { "test": "10 X 12", "answers": ["120"] },
     { "test": "11 X 11", "answers": ["121"] },
     { "test": "11 X 12", "answers": ["132"] },
-    { "test": "12 X 12", "answers": ["144"] }
+    { "test": "12 X 12", "answers": ["144"] },
+    { "test": "15 X 15", "answers": ["225"] },
+    { "test": "100 X 100", "answers": ["10000"] },
+    { "test": "80 X 3", "answers": ["240"] }
   ],
   trig: [
     { "test": "$$sin^{-1}(0)$$", "answers": ["0"] },

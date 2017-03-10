@@ -1,0 +1,7 @@
+<div>
+  <h2>Wikipedia Search (using Promise)</h2>
+  <input #term type="text" (keyup)="search(term.value)">
+  <ul>
+    <li *ngFor="#item of items">{{item}}</li>
+    </ul>
+  </div>

@@ -1,4 +1,12 @@
 // TODO:
+// Stats
+//   * Total time
+//   * Longest/Shortest response time
+//   * # of backstrokes
+//   * # of errors, including recovered in 3 tries
+//   * #
+//  More obvious feedback for errors
+
 //  3. add catalog of drills (e.g. English Week 1 vocabulary)
 //  4. add default drill concept
 /// 5. visualize result: percent correct vs percent wrong
@@ -20,8 +28,8 @@ $(document).ready(function () {
   // "Latin/Conjugation"
   //  "Latin/Unit1/Stage7",
   //  "Latin/Unit1/Stage8"];
-  //  "Multiplication"];
-    "trig"];
+  "Multiplication"];
+  //  "trig"];
   var NEED_MATHJAX = true;
   var MAX_TEST_SIZE = 50;
 
