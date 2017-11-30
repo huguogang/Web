@@ -1,0 +1,17 @@
+<div class="segment-view" [ngClass]="['is-expanded-' + segment.isExpanded]">
+  <div (click)="handleClick()" class="segment-body">
+    <div>
+    <div class="toggler"></div>
+    <span class="tag">{{segment.data.tag}}</span>
+    <span class="spec">: {{segment.spec?.name}}</span>
+  </div>
+    <div>
+      <code class="raw-edi">{{segment.rawEdi}}</code>
+    </div>
+  </div>
+  <div class="elements" *ngIf="segment.isExpanded">
+    <element-view *ngFor="let element of segment.elements" [element]="element">
+    </element-view>
+  </div>
+  <hr>
+</div>

@@ -1,0 +1,14 @@
+[
+  {
+    "status": "Healthy",
+    "count": 5
+  },
+  {
+    "status": "Warning",
+    "count": 2
+  },
+  {
+    "status": "Dead",
+    "count": 3
+  }
+]

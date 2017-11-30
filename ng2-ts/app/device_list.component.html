@@ -1,0 +1,18 @@
+<h1>Device List (Status:
+  <span class="label label-{{status | statusStyle}}">{{status}}</span>
+  ) 
+</h1>
+<table class="table table-striped table-hover table-bordered">
+  <tr>
+    <th>ID</th>
+    <th>Version (Firmware/Hardware)</th>
+    <th>Battery Level</th>
+  </tr>
+  <tr *ngFor="#device of devices">
+    <td>{{device.ID}}</td>
+    <td>{{device.FirmwareVersion}}/{{device.HardwareVersion}}</td>
+    <td>
+      <span class="label label-{{device.BatteryLevel | batteryStyle}}">{{device.BatteryLevel}}</span>
+    </td>
+  </tr>
+</table>

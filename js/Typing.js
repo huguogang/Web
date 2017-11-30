@@ -1,4 +1,12 @@
 // TODO:
+// Stats
+//   * Total time
+//   * Longest/Shortest response time
+//   * # of backstrokes
+//   * # of errors, including recovered in 3 tries
+//   * #
+//  More obvious feedback for errors
+
 //  3. add catalog of drills (e.g. English Week 1 vocabulary)
 //  4. add default drill concept
 /// 5. visualize result: percent correct vs percent wrong
@@ -18,10 +26,15 @@ $(document).ready(function () {
   // "Latin/Unit1/Stage5",
   // "Latin/Unit1/Stage6",
   // "Latin/Conjugation"
-    "Latin/Unit1/Stage7",
-    "Latin/Unit1/Stage8"];
+  //  "Latin/Unit1/Stage7",
+  //  "Latin/Unit1/Stage8"];
+  "Multiplication"];
+  //  "trig"];
+  var NEED_MATHJAX = true;
   var MAX_TEST_SIZE = 50;
 
+  var KEY_MATCHER = /[0-9]/; ///[a-zA-Z]/ | /[0-9]/
+    
   var console = console || window.console || { log: function () { } };
   
   // Wrong guess over the threshold is considered wrong, and we will
@@ -54,6 +67,9 @@ $(document).ready(function () {
   var setCurrentTest = function (test) {
     currentTest = test;
     $("#currentTest").text(test.test);
+    if(NEED_MATHJAX) {
+      MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+    }
   };
 
   var ready = function () {
@@ -210,7 +226,6 @@ $(document).ready(function () {
   });
 
   $(document).keypress(function (event) {
-    var asciiMatcher = /[a-zA-Z]/;
     var char = String.fromCharCode(event.which);
 
     if (state == "finished") {
@@ -224,7 +239,7 @@ $(document).ready(function () {
     if (char == "\r") {
       processAnswer();
     }
-    else if (asciiMatcher.test(char) || char == " ") {
+    else if (KEY_MATCHER.test(char) || char == " ") {
       setCurrentAnswer(currentAnswer + char);
     }
     else {

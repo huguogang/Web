@@ -1,0 +1,63 @@
+<html>
+
+<head>
+  <!-- base for router
+  <script>document.write('<base href="' + document.location + '" />');</script>
+  -->
+  <base href='/' />
+
+  <title>Angular 2 QuickStart</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- 1. Load libraries -->
+  <!-- IE required polyfills, in this exact order -->
+  <script src="node_modules/es6-shim/es6-shim.min.js"></script>
+  <script src="node_modules/systemjs/dist/system-polyfills.js"></script>
+  <script src="node_modules/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+
+  <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="node_modules/rxjs/bundles/Rx.js"></script>
+  <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+  <script src="node_modules/angular2/bundles/router.dev.js"></script>
+  <script src="node_modules/angular2/bundles/http.dev.js"></script>
+
+  <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+  <!-- 2. Configure SystemJS -->
+  <script>
+System.config({
+  packages: {
+    app: {
+      format: 'register',
+      defaultExtension: 'js'
+    }
+  }
+});
+// Order of import is important
+System.import('app/secrets')
+  .then(
+    s => {
+      // generate Google Maps API dynamically, something like this:
+      // &lt;script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" type="text/javascript"&gt;
+      var scriptElement = document.createElement("script");
+      scriptElement.async = true;
+      scriptElement.src = "https://maps.googleapis.com/maps/api/js?key=" +
+      s.Secrets.GOOGLE_API_KEY + "&callback=onMapInit";
+      var script0 = document.getElementsByTagName('script')[0];
+      script0.parentNode.insertBefore(scriptElement, script0);
+    },
+    console.error.bind(console));
+
+function onMapInit() {
+  System.import('app/main')
+    .then(null, console.error.bind(console));
+}
+  </script>
+</head>
+<!-- 3. Display the application -->
+
+<body>
+  <my-app>Loading...</my-app>
+</body>
+
+</html>

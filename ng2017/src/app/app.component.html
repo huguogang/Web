@@ -1,0 +1,20 @@
+<mat-form-field>
+  <textarea matInput placeholder="Raw EDI String" rows="10" #rawEdi></textarea>
+</mat-form-field>
+<button (click)="parse(rawEdi.value);">Parse Raw Edi</button>
+
+<mat-list>
+  <mat-list-item *ngFor="let sample of SAMPLES">
+    <h3 matLine> {{sample.name}}
+      <button (click)="parse(sample.sampleString);">Parse "{{sample.name}}"</button>
+    </h3>
+    <p matLine>
+      <span>
+        <pre>{{sample.sampleString}}</pre>
+      </span>
+    </p>
+  </mat-list-item>
+</mat-list>
+
+<segment-view *ngFor="let segment of ediDocument" [segment]="segment">
+</segment-view>
